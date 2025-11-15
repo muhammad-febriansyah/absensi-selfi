@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 wp14">
+  <w:body>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Arsitektur Sistem Absensi Tenaga Kependidikan</w:t></w:r>
+    </w:p>
+
+    <w:p><w:r><w:t>Dokumen ini merangkum Flowchart, DFD, ERD, dan desain konseptual database berdasarkan struktur kode dan migrasi pada sistem absensi ini.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t>Daftar Isi</w:t></w:r></w:p>
+    <w:p>
+      <w:fldSimple w:instr="TOC \o \"1-3\" \h \z \u">
+        <w:r><w:t>Table of Contents</w:t></w:r>
+      </w:fldSimple>
+    </w:p>
+    <w:p><w:r><w:t>Catatan: di Word, klik kanan pada daftar isi dan pilih Update Field untuk memperbarui halaman.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t>Ringkasan Fitur</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- Autentikasi pegawai dan admin.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- Absensi masuk/pulang berbasis foto dan lokasi dengan validasi jam kerja, keterlambatan, dan lembur.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- Histori presensi pegawai.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- Pengajuan dan pengelolaan Izin/Cuti.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- Master data: Jabatan, Jam Kerja, Lokasi Penempatan, Radius Kantor.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- Monitoring dan persetujuan (admin).</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t>Flowchart Sistem</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>Alur Absensi Masuk</w:t></w:r></w:p>
+    <w:p><w:r><w:t>1. Pegawai login dan validasi kredensial.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>2. Cek apakah sudah absen masuk pada tanggal hari ini.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>3. Ambil foto wajah dan koordinat GPS.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>4. Hitung jarak ke titik kantor dan bandingkan dengan radius.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>5. Jika di luar radius: tolak proses absensi.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>6. Jika di dalam radius: bandingkan jam sekarang dengan jam_kerja.in.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>7. Tandai status Masuk atau Terlambat.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>8. Simpan presensi masuk (in, foto_in, lat/long, datein, keterangan).</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>Alur Absensi Pulang</w:t></w:r></w:p>
+    <w:p><w:r><w:t>1. Ambil foto wajah dan koordinat GPS.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>2. Validasi jam sekarang &gt;= jam_kerja.out.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>3. Jika belum waktunya pulang: tolak proses absensi pulang.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>4. Hitung jarak ke titik kantor dan bandingkan dengan radius.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>5. Jika di dalam radius: set out, foto_out, dateout, latout/longout.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>6. Tandai lembur = 1 jika jam sekarang &gt; jam_kerja.out, selain itu 0.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>7. Simpan presensi pulang.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t>Data Flow Diagram (DFD Level 0)</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Entitas: Pegawai, Admin.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Proses: P1 Autentikasi, P2 Rekam Presensi Masuk, P3 Rekam Presensi Pulang, P4 Kelola Izin/Cuti, P5 Kelola Master Data, P6 Laporan/Monitoring.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Data Store: D1 Users, D2 Presensi, D3 Izin/Cuti, D4 Jabatan, D5 Jam Kerja, D6 Lokasi Penempatan, D7 Radius Kantor.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Aliran data utama: Pegawai mengirim foto/GPS/waktu ke P2/P3 untuk disimpan ke D2; Pegawai mengirim form ke P4 untuk disimpan ke D3; Admin melakukan CRUD master via P5 ke D4–D7; Admin meminta laporan via P6 terhadap D1–D3.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t>ERD Konseptual</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- USER 1..* PRESENSI</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- USER 1..* IZIN</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- JABATAN 1..* USER</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- JAM_KERJA 1..* USER</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- LOKASI_PENEMPATAN 1..* RADIUS_KANTOR</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- LOKASI_PENEMPATAN 1..* USER</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- RADIUS_KANTOR 1..* USER</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t>Desain Konseptual Database</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>users</w:t></w:r></w:p>
+    <w:p><w:r><w:t>id PK, jabatan_id FK, lokasi_penempatan_id FK, jam_kerja_id FK, radius_kantor_id FK, nik, name, email (unique), password, role, image, remember_token, timestamps</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>jabatans</w:t></w:r></w:p>
+    <w:p><w:r><w:t>id PK, name, timestamps</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>jam_kerjas</w:t></w:r></w:p>
+    <w:p><w:r><w:t>id PK, in, out, timestamps</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>lokasi_penempatans</w:t></w:r></w:p>
+    <w:p><w:r><w:t>id PK, name, timestamps</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>radius_kantors</w:t></w:r></w:p>
+    <w:p><w:r><w:t>id PK, lokasi_penempatan_id FK, lat, long, radius, timestamps</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>presensis</w:t></w:r></w:p>
+    <w:p><w:r><w:t>id PK, user_id FK, in, out, datein, dateout, foto_in, foto_out, lat, long, latout, longout, lokasi, masuk, keluar, keterangan, lembur, timestamps</w:t></w:r></w:p>
+    <w:p><w:pPr><w:pStyle w:val="Heading3"/></w:pPr><w:r><w:t>izins</w:t></w:r></w:p>
+    <w:p><w:r><w:t>id PK, user_id FK, date, start, end, jenis, title, description, status, timestamps</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t>Delta Migrasi yang Direkomendasikan</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- users: tambah radius_kantor_id (FK) dan image (nullable string).</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- radius_kantors: tambah lokasi_penempatan_id (FK); tipe lat/long disarankan decimal(10,7), radius integer.</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- presensis: tambah datein, dateout (datetime), lat/long/latout/longout (decimal), masuk, keluar (string), keterangan (text), lembur (boolean).</w:t></w:r></w:p>
+    <w:p><w:r><w:t>- izins: tambah date, start, end (date), status (string); pastikan title sesuai kebutuhan.</w:t></w:r></w:p>
+
+    <w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t>Lampiran</w:t></w:r></w:p>
+    <w:p><w:r><w:t>Diagram Mermaid lengkap tersedia pada file docs/arsitektur-absensi.md.</w:t></w:r></w:p>
+
+    <w:sectPr>
+      <w:headerReference w:type="default" r:id="rId2"/>
+      <w:footerReference w:type="default" r:id="rId3"/>
+      <w:pgSz w:w="11906" w:h="16838"/>
+      <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708" w:footer="708" w:gutter="0"/>
+      <w:cols w:space="708"/>
+      <w:docGrid w:linePitch="360"/>
+    </w:sectPr>
+  </w:body>
+</w:document>

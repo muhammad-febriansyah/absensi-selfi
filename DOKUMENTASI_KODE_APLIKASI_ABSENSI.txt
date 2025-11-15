@@ -1,0 +1,1203 @@
+================================================================================
+        DOKUMENTASI KODE APLIKASI E-ABSENSI LARAVEL
+================================================================================
+
+Dokumentasi ini menjelaskan fungsi-fungsi kode yang ada dalam aplikasi
+E-Absensi, meliputi Controller, Model, dan View untuk fitur-fitur utama
+seperti Sidebar Admin, Login, dan Bottom Navbar (navigasi pegawai).
+
+Dibuat pada: 2025-11-15
+
+================================================================================
+                        DAFTAR ISI
+================================================================================
+1. FITUR LOGIN & AUTENTIKASI
+   1.1. AuthController
+   1.2. View Login Page
+
+2. FITUR SIDEBAR ADMIN
+   2.1. Struktur Sidebar
+   2.2. Menu-menu yang Tersedia
+
+3. FITUR BOTTOM NAVBAR (NAVIGASI PEGAWAI)
+   3.1. Struktur Bottom Navigation
+   3.2. Menu-menu yang Tersedia
+
+4. CONTROLLER UTAMA
+   4.1. DashboardController
+   4.2. PegawaiController
+   4.3. IzinController
+
+5. MODEL DATABASE
+   5.1. Model User
+   5.2. Model Presensi
+   5.3. Model Izin
+   5.4. Model Jabatan
+
+
+================================================================================
+1. FITUR LOGIN & AUTENTIKASI
+================================================================================
+
+1.1. AuthController
+--------------------------------------------------------------------------------
+File: app/Http/Controllers/AuthController.php
+
+PENJELASAN FUNGSI:
+AuthController bertanggung jawab untuk menangani proses autentikasi pengguna
+(login dan logout) dalam aplikasi.
+
+METHOD-METHOD YANG ADA:
+
+1. index()
+   - Tujuan: Menampilkan halaman form login
+   - Return: view('auth.login.index')
+   - Penjelasan: Method ini hanya merender tampilan halaman login untuk user
+
+2. checklogin(Request $request)
+   - Tujuan: Memvalidasi kredensial login user
+   - Parameter:
+     * $request berisi email dan password dari form login
+   - Proses:
+     a. Mengambil data email dan password dari request
+     b. Menggunakan Auth::attempt() untuk mencoba login dengan kondisi:
+        - Email harus cocok
+        - Password harus cocok
+        - Role harus 'Admin' (khusus login admin)
+     c. Jika berhasil:
+        - Melakukan regenerate session untuk keamanan
+        - Return JSON response success: true
+     d. Jika gagal:
+        - Return JSON response success: false
+   - Return: JSON response
+   - Penjelasan: Method ini menggunakan AJAX untuk validasi login tanpa
+     reload halaman. Hanya user dengan role 'Admin' yang bisa login melalui
+     controller ini.
+
+3. logout(Request $request)
+   - Tujuan: Mengeluarkan user dari sistem
+   - Proses:
+     a. Auth::logout() - menghapus sesi autentikasi user
+     b. $request->session()->invalidate() - membatalkan sesi yang ada
+     c. $request->session()->regenerateToken() - generate token CSRF baru
+     d. Redirect ke route 'login'
+   - Return: RedirectResponse
+   - Penjelasan: Method ini membersihkan semua data sesi user dan mengarahkan
+     kembali ke halaman login. Ini penting untuk keamanan aplikasi.
+
+
+1.2. View Login Page
+--------------------------------------------------------------------------------
+File: resources/views/auth/login/index.blade.php
+
+STRUKTUR HALAMAN:
+Halaman login menggunakan layout dari 'auth.layouts.main' dan berisi:
+
+KOMPONEN UTAMA:
+
+1. Logo dan Header
+   - Menampilkan logo aplikasi (ic.png)
+   - Judul: "Selamat datang kembali !"
+   - Subtitle: "Silahkan login untuk melanjutkan ke E-Absensi."
+
+2. Form Login
+   - ID Form: #loginForm
+   - Method: POST
+   - CSRF Token: @csrf untuk keamanan
+
+   a. Input Email
+      - Type: email
+      - Name: email
+      - Icon: bx bx-user (icon user)
+      - Placeholder: "Enter username"
+
+   b. Input Password
+      - Type: password
+      - Name: password
+      - Icon: bx bx-lock-alt (icon gembok)
+      - Fitur tambahan: tombol show/hide password
+      - Placeholder: "Enter password"
+
+   c. Checkbox "Remember Me"
+      - ID: auth-remember-check
+      - Fungsi: mengingat sesi login user
+
+   d. Tombol Submit
+      - Class: btn btn-primary
+      - Text: "Log In"
+      - Full width button
+
+3. AJAX Login Handler (JavaScript)
+   Penjelasan kode JavaScript:
+
+   a. Event Handler Submit Form
+      - Menggunakan jQuery untuk menangani submit form
+      - preventDefault() mencegah reload halaman
+
+   b. AJAX Request
+      - URL: route('checklogin')
+      - Method: POST
+      - Data: serialize() form data (email & password)
+
+   c. Success Callback
+      - Jika response.success == true:
+        * Tampilkan SweetAlert sukses
+        * Redirect ke route('main.dashboard') setelah klik OK
+      - Jika response.success == false:
+        * Tampilkan SweetAlert warning
+        * Pesan: "Email atau password anda salah!"
+
+   d. Error Callback
+      - Menangani error yang tidak terduga
+      - Tampilkan SweetAlert error
+      - Log error ke console untuk debugging
+
+4. Footer
+   - Menampilkan copyright dengan tahun otomatis
+   - Text: "© 2025 E-Absensi"
+
+
+KEAMANAN:
+- Menggunakan CSRF token (@csrf) untuk mencegah CSRF attacks
+- Password di-hash sebelum disimpan (ditangani Laravel secara otomatis)
+- Session regeneration setelah login berhasil
+
+
+================================================================================
+2. FITUR SIDEBAR ADMIN
+================================================================================
+
+2.1. Struktur Sidebar
+--------------------------------------------------------------------------------
+File: resources/views/admin/layouts/sidebar.blade.php
+
+PENJELASAN UMUM:
+Sidebar adalah menu navigasi vertikal untuk admin yang menampilkan semua
+menu utama aplikasi. Sidebar ini menggunakan template Metismenu untuk
+dropdown menu.
+
+KOMPONEN UTAMA:
+
+1. Logo/Brand Box (Baris 4-23)
+   - Menampilkan logo aplikasi di bagian atas sidebar
+   - Logo Dark: untuk mode terang
+   - Logo Light: untuk mode gelap
+   - Ukuran logo: 90px x 140px
+   - Link menuju: route('main.dashboard')
+   - Penjelasan: Ketika logo diklik, user akan diarahkan ke dashboard
+
+2. Toggle Button (Baris 25-27)
+   - Class: vertical-menu-btn
+   - Icon: bx bx-menu
+   - Fungsi: Menyembunyikan/menampilkan sidebar (collapse/expand)
+   - Penjelasan: Berguna untuk memberikan lebih banyak ruang layar
+
+3. Sidebar Menu (Baris 29-89)
+   Struktur: <div id="sidebar-menu">
+
+   a. Menu Title: "Dashboard" (Baris 35)
+
+   b. Menu Item: Dashboard (Baris 36-41)
+      - Route: route('main.dashboard')
+      - Icon: bx bx-home-alt (icon rumah)
+      - Text: "Dashboard"
+      - Penjelasan: Menu utama untuk melihat ringkasan data
+
+   c. Menu Title: "Main Menu" (Baris 44)
+
+   d. Menu Dropdown: Master Data (Baris 46-57)
+      - Icon: bx bx-book (icon buku)
+      - Class: has-arrow (menandakan ada submenu)
+      - Penjelasan: Menu dropdown yang berisi data-data master
+
+      Submenu Master Data:
+
+      1. Jabatan (Baris 52)
+         - Route: route('main.jabatan')
+         - Fungsi: Mengelola data jabatan pegawai
+         - Penjelasan: Halaman untuk CRUD (Create, Read, Update, Delete)
+           data jabatan seperti "Manager", "Staff", dll.
+
+      2. Lokasi Penempatan (Baris 53)
+         - Route: route('main.lokasi')
+         - Fungsi: Mengelola data lokasi kerja pegawai
+         - Penjelasan: Mengelola lokasi kantor/cabang tempat pegawai
+           ditempatkan
+
+      3. Jam Kerja (Baris 54)
+         - Route: route('main.jamkerja')
+         - Fungsi: Mengelola data jam kerja
+         - Penjelasan: Mengatur jam masuk dan jam pulang kerja untuk
+           berbagai shift atau divisi
+
+      4. Radius Kantor (Baris 55)
+         - Route: route('main.radius')
+         - Fungsi: Mengelola data radius absensi
+         - Penjelasan: Mengatur koordinat lokasi kantor dan radius yang
+           diperbolehkan untuk absen (menggunakan GPS)
+
+   e. Menu Item: Data Pegawai (Baris 59-64)
+      - Route: route('main.pegawai')
+      - Icon: bx bxs-user-rectangle (icon user)
+      - Fungsi: Mengelola data pegawai
+      - Penjelasan: Halaman untuk melihat, menambah, mengubah, dan
+        menghapus data pegawai/karyawan
+
+   f. Menu Item: Data Absensi (Baris 65-70)
+      - Route: route('main.absen')
+      - Icon: bx bx-fingerprint (icon sidik jari)
+      - Fungsi: Melihat data absensi pegawai
+      - Penjelasan: Halaman untuk monitoring absensi masuk dan pulang
+        pegawai, termasuk yang terlambat
+
+   g. Menu Item: Data Izin/Sakit (Baris 71-76)
+      - Route: route('main.izin')
+      - Icon: bx bx-calendar (icon kalender)
+      - Fungsi: Mengelola pengajuan izin dan sakit
+      - Penjelasan: Halaman untuk melihat dan approve/reject pengajuan
+        izin atau sakit dari pegawai
+
+   h. Menu Item: Data Cuti Pegawai (Baris 78-83)
+      - Route: route('main.cuti')
+      - Icon: bx bx-calendar-event (icon kalender event)
+      - Fungsi: Mengelola pengajuan cuti
+      - Penjelasan: Halaman untuk melihat dan approve/reject pengajuan
+        cuti dari pegawai
+
+4. Header Horizontal (Baris 92-162)
+   Penjelasan: Ini adalah header alternatif untuk layout horizontal
+
+   a. Navbar Brand (sama seperti sidebar)
+
+   b. Page Title (Baris 121-125)
+      - Menampilkan variabel $title
+      - Hanya muncul di device medium ke atas (d-none d-md-block)
+      - Penjelasan: Menampilkan judul halaman yang sedang aktif
+
+   c. User Dropdown (Baris 131-155)
+      - Menampilkan foto profil user (pria.png sebagai default)
+      - Menampilkan nama user: auth()->user()->name
+      - Menampilkan email user: auth()->user()->email
+
+      Dropdown Menu:
+      - User Info: Nama dan email
+      - Logout Button:
+        * Link: route('logout')
+        * Method: POST via hidden form
+        * CSRF protection: @csrf
+        * Icon: mdi mdi-logout
+        * Penjelasan: Saat diklik, akan submit form logout dan
+          mengeluarkan user dari sistem
+
+
+2.2. Menu-menu yang Tersedia
+--------------------------------------------------------------------------------
+
+RINGKASAN MENU SIDEBAR ADMIN:
+
+1. Dashboard
+   - Melihat ringkasan/overview data aplikasi
+
+2. Master Data
+   2.1. Jabatan - mengelola data jabatan
+   2.2. Lokasi Penempatan - mengelola data lokasi
+   2.3. Jam Kerja - mengelola data jam kerja
+   2.4. Radius Kantor - mengelola koordinat dan radius absensi
+
+3. Data Pegawai
+   - Mengelola seluruh data pegawai/karyawan
+
+4. Data Absensi
+   - Monitoring absensi masuk/pulang pegawai
+
+5. Data Izin/Sakit
+   - Approve/reject pengajuan izin dan sakit
+
+6. Data Cuti Pegawai
+   - Approve/reject pengajuan cuti
+
+
+================================================================================
+3. FITUR BOTTOM NAVBAR (NAVIGASI PEGAWAI)
+================================================================================
+
+3.1. Struktur Bottom Navigation
+--------------------------------------------------------------------------------
+File: resources/views/pegawai/layouts/bottomnav.blade.php
+
+PENJELASAN UMUM:
+Bottom navbar adalah menu navigasi di bagian bawah layar khusus untuk
+halaman pegawai. Desain ini cocok untuk mobile/smartphone karena mudah
+dijangkau dengan jempol.
+
+KOMPONEN MENU:
+
+1. Menu Home (Baris 2-7)
+   - Route: route('pegawai.home')
+   - Icon: ion-icon name="home-outline"
+   - Text: "Home"
+   - Active State: {{ request()->routeIs('pegawai.home') ? 'active' : '' }}
+   - Fungsi: Menuju halaman beranda pegawai
+   - Penjelasan: Menu ini akan highlight (active) ketika user sedang
+     berada di halaman home. Active state ditentukan dengan mengecek
+     apakah route saat ini adalah 'pegawai.home'.
+
+2. Menu Histori (Baris 8-14)
+   - Route: route('pegawai.histori')
+   - Icon: ion-icon name="document-text-outline"
+   - Text: "Histori"
+   - Active State: {{ request()->routeIs('pegawai.histori') ? 'active' : '' }}
+   - Fungsi: Menampilkan riwayat absensi pegawai
+   - Penjelasan: Pegawai dapat melihat histori absensi masuk dan pulang
+     mereka. Menu akan highlight saat berada di halaman histori.
+
+3. Menu Absen (CENTER BUTTON) (Baris 16-22)
+   - Route: route('pegawai.absen')
+   - Icon: ion-icon name="camera"
+   - Class: action-button large
+   - Tidak ada text
+   - Fungsi: Melakukan absensi (foto + GPS)
+   - Penjelasan: Ini adalah tombol utama (lebih besar) di tengah bottom
+     navbar. Desain ini mengikuti pola FAB (Floating Action Button).
+     Tombol ini mengarahkan ke halaman absensi di mana pegawai dapat
+     melakukan absen masuk/pulang dengan foto selfie dan GPS.
+
+4. Menu Izin (Baris 23-29)
+   - Route: route('pegawai.izin')
+   - Icon: ion-icon name="calendar-outline"
+   - Text: "Izin"
+   - Active State: {{ request()->routeIs('pegawai.izin') ? 'active' : '' }}
+   - Fungsi: Mengelola pengajuan izin/sakit
+   - Penjelasan: Pegawai dapat mengajukan izin atau sakit melalui menu
+     ini. Menu akan highlight ketika berada di halaman izin.
+
+5. Menu Profile (Baris 30-35)
+   - Route: route('pegawai.profile')
+   - Icon: ion-icon name="people-outline"
+   - Text: "Profile"
+   - Tidak ada active state
+   - Fungsi: Melihat dan mengedit profil pegawai
+   - Penjelasan: Pegawai dapat melihat dan mengubah data profil mereka
+     seperti foto, password, dll.
+
+
+3.2. Menu-menu yang Tersedia
+--------------------------------------------------------------------------------
+
+RINGKASAN MENU BOTTOM NAVBAR PEGAWAI:
+
+1. Home
+   - Dashboard/beranda pegawai
+   - Menampilkan info absensi hari ini
+
+2. Histori
+   - Riwayat absensi masuk dan pulang
+   - Filter berdasarkan tanggal
+
+3. Absen (Tombol Tengah)
+   - Absensi masuk/pulang
+   - Menggunakan kamera dan GPS
+
+4. Izin
+   - Pengajuan izin sakit/izin
+   - Lihat status pengajuan
+
+5. Profile
+   - Edit profil pegawai
+   - Ubah password
+
+
+DESAIN PATTERN:
+Bottom navbar ini menggunakan pattern yang umum di aplikasi mobile:
+- 5 item menu
+- Tombol aksi utama di tengah (lebih besar)
+- Icon dengan label
+- Active state untuk navigasi
+
+
+================================================================================
+4. CONTROLLER UTAMA
+================================================================================
+
+4.1. DashboardController
+--------------------------------------------------------------------------------
+File: app/Http/Controllers/DashboardController.php
+
+PENJELASAN UMUM:
+DashboardController mengelola berbagai halaman admin termasuk dashboard,
+data izin, data cuti, data pegawai, dan data absensi.
+
+METHOD-METHOD YANG ADA:
+
+1. index()
+   - Tujuan: Menampilkan halaman dashboard admin
+   - Proses:
+     a. Menghitung total cuti (where jenis = 'Cuti')
+     b. Menghitung total izin (where jenis = 'Izin')
+     c. Menghitung total sakit (where jenis = 'Sakit')
+     d. Menghitung total pegawai (where role = 'Pegawai')
+     e. Mengambil data absensi masuk hari ini (whereDate datein = today)
+     f. Mengambil data absensi pulang hari ini (whereDate dateout = today)
+   - Return: view 'admin.dashboard.index' dengan data statistik
+   - Penjelasan: Method ini mengumpulkan statistik penting untuk
+     ditampilkan di dashboard, seperti jumlah izin/cuti/sakit dan
+     data absensi hari ini.
+
+2. izin()
+   - Tujuan: Menampilkan halaman data izin/sakit
+   - Proses:
+     - Mengambil data Izin where jenis != 'Cuti'
+     - Artinya hanya izin dan sakit, tidak termasuk cuti
+     - Diurutkan dari yang terbaru (latest)
+   - Return: view 'admin.izin.index'
+   - Penjelasan: Menampilkan daftar pengajuan izin dan sakit dari
+     pegawai yang perlu di-approve atau reject oleh admin.
+
+3. approve(Request $request)
+   - Tujuan: Menyetujui pengajuan izin/sakit
+   - Parameter: $request->id (ID izin yang akan disetujui)
+   - Proses:
+     a. Cari data Izin berdasarkan ID
+     b. Update status menjadi "Disetujui"
+     c. Simpan perubahan
+   - Return: JSON response
+   - Penjelasan: Method ini dipanggil via AJAX ketika admin mengklik
+     tombol approve. Status berubah menjadi "Disetujui".
+
+4. reject(Request $request)
+   - Tujuan: Menolak pengajuan izin/sakit
+   - Parameter: $request->id
+   - Proses:
+     a. Cari data Izin berdasarkan ID
+     b. Update status menjadi "Ditolak"
+     c. Simpan perubahan
+   - Return: JSON response
+   - Penjelasan: Method ini dipanggil via AJAX ketika admin menolak
+     pengajuan. Status berubah menjadi "Ditolak".
+
+5. cuti()
+   - Tujuan: Menampilkan halaman data cuti pegawai
+   - Proses:
+     - Mengambil data Izin where jenis = 'Cuti'
+     - Diurutkan dari yang terbaru
+   - Return: view 'admin.cuti.index'
+   - Penjelasan: Khusus menampilkan pengajuan cuti saja, terpisah dari
+     izin/sakit.
+
+6. approveCuti(Request $request)
+   - Tujuan: Menyetujui pengajuan cuti
+   - Proses: Sama seperti approve(), tapi untuk cuti
+   - Return: JSON response
+   - Penjelasan: Mengubah status pengajuan cuti menjadi "Disetujui".
+
+7. rejectCuti(Request $request)
+   - Tujuan: Menolak pengajuan cuti
+   - Proses: Sama seperti reject(), tapi untuk cuti
+   - Return: JSON response
+   - Penjelasan: Mengubah status pengajuan cuti menjadi "Ditolak".
+
+8. pegawai()
+   - Tujuan: Menampilkan halaman data pegawai
+   - Proses:
+     - Mengambil semua User where role = 'Pegawai'
+     - Diurutkan dari yang terbaru
+   - Return: view 'admin.pegawai.index'
+   - Penjelasan: Menampilkan daftar semua pegawai yang terdaftar.
+
+9. detailpegawai($id)
+   - Tujuan: Menampilkan detail data satu pegawai
+   - Parameter: $id (ID pegawai)
+   - Proses:
+     - Mencari User berdasarkan ID
+     - findOrFail() akan error 404 jika tidak ditemukan
+   - Return: view 'admin.pegawai.detail'
+   - Penjelasan: Menampilkan profil lengkap pegawai termasuk jabatan,
+     lokasi, jam kerja, dll.
+
+10. absen(Request $request)
+    - Tujuan: Menampilkan halaman data absensi dengan filter tanggal
+    - Parameter:
+      * $request->start_date (tanggal mulai filter)
+      * $request->end_date (tanggal akhir filter)
+    - Proses:
+      a. Membuat 3 query: masuk, pulang, dan telat
+      b. Query Masuk: where masuk = 'Masuk'
+      c. Query Pulang: where keluar != null
+      d. Query Telat: where masuk = 'Terlambat'
+      e. Jika ada filter tanggal:
+         - Gunakan whereBetween pada created_at
+         - Dari startDate pukul 00:00:00 sampai endDate pukul 23:59:59
+      f. Ambil data dengan latest()
+    - Return: view 'admin.absen.index' dengan data masuk, pulang, telat
+    - Penjelasan: Admin dapat melihat laporan absensi pegawai dan
+      memfilter berdasarkan range tanggal tertentu. Data dipisah
+      menjadi 3 kategori: masuk tepat waktu, terlambat, dan pulang.
+
+11. detailAbsen($id)
+    - Tujuan: Melihat detail absensi masuk pegawai
+    - Parameter: $id (ID presensi)
+    - Return: view 'admin.absen.detail'
+    - Penjelasan: Menampilkan detail lengkap absensi masuk termasuk
+      foto, koordinat GPS, jam masuk, dll.
+
+12. detailAbsenPulang($id)
+    - Tujuan: Melihat detail absensi pulang pegawai
+    - Parameter: $id (ID presensi)
+    - Return: view 'admin.absen.detailpulang'
+    - Penjelasan: Menampilkan detail lengkap absensi pulang termasuk
+      foto, koordinat GPS, jam pulang, dan keterangan lembur.
+
+
+4.2. PegawaiController
+--------------------------------------------------------------------------------
+File: app/Http/Controllers/PegawaiController.php
+
+PENJELASAN UMUM:
+PegawaiController menangani semua fitur yang digunakan oleh pegawai,
+mulai dari dashboard, absensi, izin/cuti, histori, hingga profil.
+
+MIDDLEWARE:
+- Menggunakan PegawaiMiddleware untuk memastikan hanya user dengan
+  role 'Pegawai' yang bisa mengakses method-method di controller ini.
+
+METHOD-METHOD YANG ADA:
+
+1. index()
+   - Tujuan: Menampilkan dashboard pegawai
+   - Proses:
+     a. Mendapatkan ID user yang sedang login
+     b. Mengecek apakah sudah absen masuk hari ini (checkmasuk)
+     c. Mengecek apakah sudah absen pulang hari ini (checkpulang)
+     d. Mengambil data absensi masuk hari ini
+     e. Mengambil data absensi pulang hari ini
+     f. Menghitung total izin yang pernah diajukan
+     g. Menghitung total sakit yang pernah diajukan
+   - Return: view 'pegawai.dashboard.index'
+   - Penjelasan: Dashboard menampilkan status absensi hari ini dan
+     statistik izin/sakit pegawai.
+
+2. absen()
+   - Tujuan: Menampilkan halaman absensi
+   - Proses:
+     a. Mengecek apakah pegawai sudah absen masuk hari ini
+     b. Tapi belum absen pulang (whereNull dateout)
+     c. Menghitung jumlahnya untuk menentukan status
+   - Return: view 'pegawai.absen.index' dengan variabel $check
+   - Penjelasan: Variabel $check digunakan untuk menentukan apakah
+     pegawai perlu absen masuk atau absen pulang.
+
+3. saveabsen(Request $request)
+   - Tujuan: Menyimpan absensi masuk pegawai
+   - Parameter:
+     * image (base64) - foto selfie pegawai
+     * lat (latitude) - koordinat GPS
+     * long (longitude) - koordinat GPS
+   - Validasi:
+     * image: required, string
+     * lat: required, numeric
+     * long: required, numeric
+   - Proses:
+     a. Decode base64 image dan simpan ke storage/images/
+     b. Ambil data jam kerja pegawai
+     c. Cek apakah waktu sekarang > jam masuk:
+        - Jika ya: status = "Terlambat"
+        - Jika tidak: status = "Masuk"
+     d. Cek apakah sudah absen hari ini:
+        - Jika sudah: return error status 2
+     e. Ambil data radius kantor berdasarkan radius_kantor_id pegawai
+     f. Hitung jarak antara lokasi pegawai dengan lokasi kantor
+        menggunakan rumus Haversine
+     g. Jika jarak > radius kantor:
+        - Return error status 4 (di luar radius)
+     h. Jika semua validasi lulus:
+        - Simpan data presensi dengan foto, GPS, waktu, dan status
+     i. Return response sesuai status (terlambat atau tepat waktu)
+   - Return: JSON response
+   - Status Code:
+     * 0: Berhasil
+     * 2: Sudah absen hari ini
+     * 3: Terlambat tapi berhasil disimpan
+     * 4: Di luar radius
+   - Penjelasan: Method ini sangat kompleks karena melakukan berbagai
+     validasi termasuk:
+     - Cek duplikasi absensi
+     - Validasi lokasi GPS menggunakan rumus Haversine
+     - Deteksi keterlambatan berdasarkan jam kerja
+     - Menyimpan foto selfie dan koordinat GPS
+
+4. absenout(Request $request)
+   - Tujuan: Menyimpan absensi pulang pegawai
+   - Parameter:
+     * image (base64) - foto selfie saat pulang
+     * lat & long - koordinat GPS (opsional di kode ini)
+   - Proses:
+     a. Decode dan simpan foto pulang
+     b. Ambil data jam kerja pegawai
+     c. Cek apakah waktu sekarang < jam pulang:
+        - Jika ya: return error status 1 (belum waktunya)
+     d. Cek apakah sudah absen masuk hari ini:
+        - Jika belum: return error status 2
+     e. Cek apakah sudah absen pulang:
+        - Jika sudah: return error status 3
+     f. Validasi radius GPS (sama seperti absen masuk)
+     g. Deteksi lembur: jika waktu pulang > jam keluar
+     h. Update record presensi dengan data absen pulang
+   - Return: JSON response
+   - Status Code:
+     * 0: Berhasil
+     * 1: Belum waktunya pulang
+     * 2: Belum absen masuk
+     * 3: Sudah absen pulang
+     * 4: Di luar radius
+   - Penjelasan: Method ini mengupdate record presensi yang sudah ada
+     (dari absen masuk) dengan data absen pulang. Ada deteksi lembur
+     jika pegawai pulang melebihi jam kerja.
+
+5. lokasi()
+   - Tujuan: Menampilkan halaman peta lokasi kantor
+   - Return: view 'pegawai.lokasi.index'
+   - Penjelasan: Pegawai dapat melihat peta lokasi kantor dan radius
+     yang diperbolehkan untuk absensi.
+
+6. histori()
+   - Tujuan: Menampilkan histori absensi pegawai
+   - Proses:
+     a. Ambil data absensi masuk (where masuk != null)
+     b. Ambil data absensi pulang (where keluar != null)
+     c. Diurutkan dari yang terbaru
+   - Return: view 'pegawai.absen.histori'
+   - Penjelasan: Pegawai dapat melihat riwayat absensi mereka.
+
+7. cuti()
+   - Tujuan: Menampilkan halaman daftar cuti pegawai
+   - Proses:
+     - Ambil data Izin where jenis = 'Cuti'
+     - Hanya data milik pegawai yang login
+   - Return: view 'pegawai.cuti.index'
+   - Penjelasan: Pegawai dapat melihat daftar pengajuan cuti mereka
+     beserta statusnya (Pending/Disetujui/Ditolak).
+
+8. create()
+   - Tujuan: Menampilkan form pengajuan cuti
+   - Return: view 'pegawai.cuti.create'
+   - Penjelasan: Halaman form untuk mengajukan cuti baru.
+
+9. store(Request $request)
+   - Tujuan: Menyimpan pengajuan cuti baru
+   - Parameter:
+     * start - tanggal mulai cuti
+     * end - tanggal selesai cuti
+     * description - alasan cuti
+   - Proses:
+     a. Buat record Izin baru
+     b. Set jenis = "Cuti"
+     c. Set status = "Pending" (menunggu persetujuan)
+     d. Simpan ke database
+   - Return: JSON response
+   - Penjelasan: Pengajuan cuti akan masuk dengan status Pending dan
+     menunggu persetujuan dari admin.
+
+10. show($id)
+    - Tujuan: Menampilkan detail pengajuan cuti
+    - Parameter: $id (ID izin/cuti)
+    - Return: view 'pegawai.cuti.detail'
+    - Penjelasan: Pegawai dapat melihat detail pengajuan cuti termasuk
+      tanggal, alasan, dan status persetujuan.
+
+11. profile()
+    - Tujuan: Menampilkan halaman profil pegawai
+    - Proses:
+      a. Ambil semua data jabatan (untuk dropdown)
+      b. Ambil semua data jam kerja (untuk dropdown)
+      c. Ambil semua data lokasi/radius kantor (untuk dropdown)
+      d. Ambil data user yang sedang login
+    - Return: view 'pegawai.profile.index'
+    - Penjelasan: Halaman untuk melihat dan mengedit profil pegawai.
+
+12. updateprofile(Request $request)
+    - Tujuan: Mengupdate data profil pegawai
+    - Parameter:
+      * nik - Nomor Induk Karyawan
+      * name - Nama pegawai
+      * email - Email
+      * password - Password baru (opsional)
+      * jabatan_id - ID jabatan
+      * jam_kerja_id - ID jam kerja
+      * radius_kantor_id - ID radius kantor
+      * image - Foto profil (opsional, max 3MB)
+    - Validasi:
+      * image: nullable, image, max 3072 KB (3MB)
+    - Proses:
+      a. Jika ada upload foto: simpan ke storage/images/
+      b. Update data user:
+         - NIK, name, email
+         - Jika ada password baru: hash dan update
+         - jabatan_id, jam_kerja_id, radius_kantor_id
+         - Jika ada foto baru: update image path
+      c. Simpan perubahan
+    - Return: JSON response
+    - Penjelasan: Pegawai dapat mengubah data profil mereka sendiri.
+      Password di-hash menggunakan Hash::make() untuk keamanan.
+
+
+4.3. IzinController
+--------------------------------------------------------------------------------
+File: app/Http/Controllers/IzinController.php
+
+PENJELASAN UMUM:
+IzinController menangani pengajuan izin dan sakit dari pegawai.
+
+METHOD-METHOD YANG ADA:
+
+1. index()
+   - Tujuan: Menampilkan daftar izin/sakit pegawai
+   - Proses:
+     - Ambil semua data Izin milik pegawai yang login
+     - Diurutkan dari yang terbaru
+   - Return: view 'pegawai.izin.index'
+   - Penjelasan: Menampilkan semua pengajuan izin/sakit/cuti pegawai.
+
+2. create()
+   - Tujuan: Menampilkan form pengajuan izin/sakit
+   - Return: view 'pegawai.izin.create'
+   - Penjelasan: Halaman form untuk mengajukan izin atau sakit.
+
+3. store(Request $request)
+   - Tujuan: Menyimpan pengajuan izin/sakit baru
+   - Parameter:
+     * date - tanggal izin/sakit
+     * jenis - jenis (Izin/Sakit)
+     * description - alasan/keterangan
+     * image - bukti (foto surat dokter, dll) - opsional
+   - Validasi:
+     * image: image, mimes jpeg/png/jpg/gif/svg, max 15048 KB
+   - Proses:
+     a. Jika ada upload gambar: simpan ke storage/images/
+     b. Buat record Izin baru
+     c. Set user_id, date, jenis, description, image
+     d. Set status = "Pending"
+     e. Simpan ke database
+   - Return: JSON response
+   - Penjelasan: Pegawai dapat mengajukan izin atau sakit dengan
+     mengunggah bukti seperti surat dokter (opsional). Status awal
+     adalah "Pending" menunggu persetujuan admin.
+
+4. show($id)
+   - Tujuan: Menampilkan detail pengajuan izin/sakit
+   - Parameter: $id (ID izin)
+   - Return: view 'pegawai.izin.detail'
+   - Penjelasan: Pegawai dapat melihat detail pengajuan mereka
+     termasuk foto bukti dan status persetujuan.
+
+5. edit(), update(), destroy()
+   - Status: Belum diimplementasikan (kosong)
+   - Penjelasan: Method-method ini ada karena resource controller
+     tapi belum digunakan dalam aplikasi.
+
+
+================================================================================
+5. MODEL DATABASE
+================================================================================
+
+5.1. Model User
+--------------------------------------------------------------------------------
+File: app/Models/User.php
+
+PENJELASAN:
+Model User merepresentasikan tabel users dalam database yang menyimpan
+data pegawai dan admin.
+
+TRAITS YANG DIGUNAKAN:
+1. HasApiTokens - untuk Laravel Sanctum (API authentication)
+2. HasFactory - untuk database seeding/factory
+3. Notifiable - untuk notifikasi
+
+PROPERTIES:
+
+1. $with (Eager Loading)
+   - Value: ['jabatan', 'radiusKantor', 'jamKerja']
+   - Penjelasan: Setiap kali query User, otomatis akan mengambil
+     relasi jabatan, radiusKantor, dan jamKerja. Ini mencegah N+1
+     query problem dan membuat query lebih efisien.
+
+2. $guarded
+   - Value: ['id']
+   - Penjelasan: Semua field bisa di-mass assign kecuali 'id'.
+     Ini lebih fleksibel daripada $fillable.
+
+3. $hidden
+   - Value: ['password', 'remember_token']
+   - Penjelasan: Field ini tidak akan muncul saat model di-convert
+     ke JSON atau array. Penting untuk keamanan agar password tidak
+     ter-expose di API response.
+
+4. $casts
+   - email_verified_at: 'datetime'
+     * Mengubah format string menjadi Carbon datetime object
+   - password: 'hashed'
+     * Otomatis hash password saat di-set (Laravel 10+)
+
+RELASI (RELATIONSHIPS):
+
+1. jabatan() - belongsTo
+   - Relasi: User belongs to Jabatan
+   - Penjelasan: Setiap user memiliki satu jabatan (misal: Manager,
+     Staff, dll). Foreign key: jabatan_id di tabel users.
+
+2. radiusKantor() - belongsTo
+   - Relasi: User belongs to RadiusKantor
+   - Penjelasan: Setiap user ditetapkan ke satu lokasi kantor dengan
+     radius tertentu untuk absensi GPS. Foreign key: radius_kantor_id.
+
+3. jamKerja() - belongsTo
+   - Relasi: User belongs to JamKerja
+   - Penjelasan: Setiap user memiliki jam kerja tertentu (misal:
+     shift pagi, shift siang). Foreign key: jam_kerja_id.
+
+4. presensi() - hasMany
+   - Relasi: User has many Presensi
+   - Penjelasan: Satu user memiliki banyak record presensi (absensi
+     harian). Ini adalah relasi one-to-many.
+
+5. izin() - hasMany
+   - Relasi: User has many Izin
+   - Penjelasan: Satu user dapat mengajukan banyak izin/sakit/cuti.
+
+CARA PENGGUNAAN:
+- Mengambil data user dengan relasi:
+  $user = User::find(1);
+  $user->jabatan->name; // Nama jabatan
+  $user->jamKerja->in; // Jam masuk
+  $user->radiusKantor->radius; // Radius dalam meter
+
+
+5.2. Model Presensi
+--------------------------------------------------------------------------------
+File: app/Models/Presensi.php
+
+PENJELASAN:
+Model Presensi merepresentasikan tabel presensis yang menyimpan data
+absensi masuk dan pulang pegawai.
+
+TRAITS:
+- HasFactory
+
+PROPERTIES:
+
+1. $guarded
+   - Value: ['id']
+   - Penjelasan: Semua field bisa di-mass assign kecuali ID.
+
+2. $with
+   - Value: ['user']
+   - Penjelasan: Setiap query Presensi akan otomatis load relasi user
+     (data pegawai yang absen). Ini berguna untuk menampilkan nama
+     pegawai tanpa query tambahan.
+
+RELASI:
+
+1. user() - belongsTo
+   - Relasi: Presensi belongs to User
+   - Penjelasan: Setiap record presensi dimiliki oleh satu user.
+     Foreign key: user_id.
+
+STRUKTUR DATA (estimasi field dalam tabel):
+- user_id: ID pegawai yang absen
+- datein: Tanggal dan waktu absen masuk
+- dateout: Tanggal dan waktu absen pulang
+- in: Jam absen masuk (format waktu)
+- out: Jam absen pulang (format waktu)
+- foto_in: Path foto selfie saat masuk
+- foto_out: Path foto selfie saat pulang
+- lat: Latitude GPS saat absen masuk
+- long: Longitude GPS saat absen masuk
+- latout: Latitude GPS saat absen pulang
+- longout: Longitude GPS saat absen pulang
+- masuk: Status masuk ("Masuk" atau "Terlambat")
+- keluar: Status pulang ("Pulang")
+- keterangan: Keterangan tambahan
+- lembur: Boolean (1 jika lembur, 0 jika tidak)
+
+
+5.3. Model Izin
+--------------------------------------------------------------------------------
+File: app/Models/Izin.php
+
+PENJELASAN:
+Model Izin merepresentasikan tabel izins yang menyimpan data pengajuan
+izin, sakit, dan cuti pegawai.
+
+TRAITS:
+- HasFactory
+
+PROPERTIES:
+
+1. $guarded
+   - Value: ['id']
+   - Penjelasan: Semua field bisa di-mass assign kecuali ID.
+
+2. $with
+   - Value: ['user']
+   - Penjelasan: Setiap query Izin akan otomatis load data user
+     (pegawai yang mengajukan). Berguna untuk menampilkan nama pegawai.
+
+RELASI:
+
+1. user() - belongsTo
+   - Relasi: Izin belongs to User
+   - Penjelasan: Setiap izin dimiliki oleh satu user. Foreign key: user_id.
+
+STRUKTUR DATA (estimasi field dalam tabel):
+- user_id: ID pegawai yang mengajukan
+- date: Tanggal pengajuan (untuk izin/sakit) atau tanggal mulai (untuk cuti)
+- start: Tanggal mulai cuti
+- end: Tanggal selesai cuti
+- jenis: Jenis ("Izin", "Sakit", atau "Cuti")
+- description: Alasan/keterangan
+- image: Path foto bukti (misal surat dokter)
+- status: Status persetujuan ("Pending", "Disetujui", "Ditolak")
+
+
+5.4. Model Jabatan
+--------------------------------------------------------------------------------
+File: app/Models/Jabatan.php
+
+PENJELASAN:
+Model Jabatan merepresentasikan tabel jabatans yang menyimpan data
+jabatan/posisi pegawai dalam perusahaan.
+
+TRAITS:
+- HasFactory
+
+PROPERTIES:
+
+1. $guarded
+   - Value: ['id']
+   - Penjelasan: Semua field bisa di-mass assign kecuali ID.
+
+RELASI:
+
+1. user() - hasMany
+   - Relasi: Jabatan has many Users
+   - Penjelasan: Satu jabatan dapat dimiliki oleh banyak user.
+     Misal jabatan "Staff" dimiliki oleh 10 pegawai.
+
+STRUKTUR DATA (estimasi field dalam tabel):
+- name: Nama jabatan (misal: "Manager", "Staff", "Supervisor")
+- description: Deskripsi jabatan (opsional)
+
+CONTOH DATA:
+1. Manager
+2. Supervisor
+3. Staff Admin
+4. Staff Operasional
+5. Security
+
+
+================================================================================
+                        DIAGRAM ALUR PROSES
+================================================================================
+
+ALUR PROSES LOGIN:
+1. User membuka halaman login
+2. User mengisi email dan password
+3. User klik tombol "Log In"
+4. JavaScript mencegah submit normal (preventDefault)
+5. AJAX mengirim data ke route 'checklogin'
+6. AuthController::checklogin() memvalidasi kredensial
+7. Jika berhasil:
+   - Session di-regenerate
+   - Response JSON success: true
+   - SweetAlert sukses
+   - Redirect ke dashboard admin
+8. Jika gagal:
+   - Response JSON success: false
+   - SweetAlert warning: "Email atau password salah"
+
+ALUR PROSES ABSEN MASUK:
+1. Pegawai membuka halaman absen
+2. Sistem mengecek: sudah absen masuk hari ini?
+3. Jika belum, tampilkan form absen masuk
+4. Pegawai klik tombol absen
+5. Sistem mengambil foto selfie (kamera)
+6. Sistem mengambil koordinat GPS (geolocation)
+7. Data dikirim ke PegawaiController::saveabsen()
+8. Sistem validasi:
+   a. Cek duplikasi absensi
+   b. Cek jarak GPS (apakah dalam radius kantor?)
+   c. Cek waktu (terlambat atau tidak?)
+9. Jika validasi lulus:
+   - Simpan foto ke storage
+   - Simpan record presensi dengan status
+   - Response JSON success
+10. Jika validasi gagal:
+    - Response JSON dengan error code dan pesan
+
+ALUR PROSES ABSEN PULANG:
+1. Pegawai membuka halaman absen
+2. Sistem mengecek: sudah absen masuk? sudah absen pulang?
+3. Jika sudah masuk tapi belum pulang, tampilkan form absen pulang
+4. Pegawai klik tombol absen pulang
+5. Ambil foto selfie dan GPS
+6. Data dikirim ke PegawaiController::absenout()
+7. Validasi:
+   a. Cek apakah sudah waktunya pulang
+   b. Cek apakah ada record absen masuk hari ini
+   c. Cek GPS (dalam radius?)
+   d. Cek lembur (pulang > jam kerja?)
+8. Update record presensi dengan data pulang
+9. Response JSON success
+
+ALUR PROSES PENGAJUAN IZIN/SAKIT:
+1. Pegawai membuka menu Izin
+2. Klik tombol "Ajukan Izin/Sakit"
+3. Isi form: tanggal, jenis (Izin/Sakit), keterangan
+4. Upload foto bukti (opsional)
+5. Submit form ke IzinController::store()
+6. Sistem simpan dengan status "Pending"
+7. Admin membuka menu "Data Izin/Sakit"
+8. Admin klik tombol Approve atau Reject
+9. AJAX ke DashboardController::approve() atau reject()
+10. Status berubah menjadi "Disetujui" atau "Ditolak"
+11. Pegawai dapat melihat status di halaman izin mereka
+
+ALUR PROSES PENGAJUAN CUTI:
+1. Pegawai membuka menu Izin > Tab Cuti
+2. Klik "Ajukan Cuti"
+3. Isi form: tanggal mulai, tanggal selesai, alasan
+4. Submit ke PegawaiController::store()
+5. Sistem simpan dengan jenis "Cuti" dan status "Pending"
+6. Admin membuka menu "Data Cuti Pegawai"
+7. Admin review dan approve/reject
+8. Status diupdate melalui approveCuti() atau rejectCuti()
+
+
+================================================================================
+                        TEKNOLOGI YANG DIGUNAKAN
+================================================================================
+
+BACKEND:
+- Laravel Framework (PHP)
+- Eloquent ORM untuk database
+- Laravel Sanctum untuk API authentication
+- Carbon untuk manipulasi tanggal/waktu
+
+FRONTEND:
+- Blade templating engine
+- Bootstrap untuk styling admin
+- jQuery untuk AJAX
+- SweetAlert2 untuk notifikasi/alert
+- Ionic Framework untuk UI mobile pegawai
+- Ion Icons untuk icon set
+
+FITUR KEAMANAN:
+- CSRF Protection (token)
+- Password Hashing (bcrypt)
+- Session regeneration setelah login
+- Middleware untuk role-based access
+- Input validation
+
+FITUR GPS & KAMERA:
+- HTML5 Geolocation API untuk GPS
+- getUserMedia API untuk akses kamera
+- Base64 encoding untuk foto
+- Rumus Haversine untuk kalkulasi jarak GPS
+
+DATABASE:
+- MySQL / PostgreSQL / SQLite (sesuai konfigurasi Laravel)
+- Migration untuk struktur tabel
+- Seeder untuk data awal (opsional)
+
+
+================================================================================
+                        CATATAN PENTING
+================================================================================
+
+1. KEAMANAN GPS:
+   - Aplikasi menggunakan rumus Haversine untuk menghitung jarak
+     akurat antara lokasi pegawai dan kantor
+   - Radius dalam satuan meter, bisa dikonfigurasi per kantor
+   - Validasi GPS dilakukan di backend, tidak bisa dimanipulasi
+     dari client
+
+2. DETEKSI TERLAMBAT:
+   - Sistem membandingkan waktu absen dengan jam kerja pegawai
+   - Jika terlambat, tetap bisa absen tapi tercatat sebagai "Terlambat"
+   - Admin dapat melihat laporan keterlambatan
+
+3. DETEKSI LEMBUR:
+   - Sistem otomatis mendeteksi jika pegawai pulang melebihi jam kerja
+   - Field 'lembur' dalam tabel presensi untuk tracking
+   - Dapat digunakan untuk perhitungan upah lembur
+
+4. FOTO SELFIE:
+   - Foto disimpan dalam format base64 kemudian di-decode
+   - Disimpan di storage/app/public/images/
+   - Nama file: snapshot_[timestamp].png
+   - Untuk keamanan, pastikan folder images ter-link (php artisan storage:link)
+
+5. ROLE-BASED ACCESS:
+   - Admin: akses ke semua fitur admin (dashboard, master data, dll)
+   - Pegawai: akses ke fitur pegawai saja (absen, izin, profil)
+   - Middleware memastikan separation of concern
+
+6. RELASI EAGER LOADING:
+   - Model menggunakan $with untuk eager loading
+   - Mencegah N+1 query problem
+   - Performa lebih baik saat load data dengan relasi
+
+
+================================================================================
+                    CARA PENGGUNAAN DOKUMENTASI
+================================================================================
+
+Dokumentasi ini dibuat dalam format plain text (.txt) agar mudah dicopy
+ke Microsoft Word atau aplikasi pengolah kata lainnya.
+
+LANGKAH-LANGKAH MEMBUAT DOKUMENTASI DI WORD:
+
+1. Buka file DOKUMENTASI_KODE_APLIKASI_ABSENSI.txt
+2. Copy semua isi file (Ctrl+A, Ctrl+C)
+3. Buka Microsoft Word
+4. Paste (Ctrl+V)
+5. Atur format:
+   - Font: Courier New atau Consolas untuk kode
+   - Size: 10-11 pt
+   - Margin: Normal atau Narrow
+6. Tambahkan:
+   - Cover page dengan judul dan logo
+   - Table of contents otomatis
+   - Header dan footer
+   - Nomor halaman
+7. Export ke PDF jika perlu
+
+TIPS FORMATTING:
+- Judul besar (===): gunakan Heading 1
+- Judul sedang (---): gunakan Heading 2
+- Kode dan contoh: gunakan font monospace
+- Highlight bagian penting: bold atau warna
+
+
+================================================================================
+                        PENUTUP
+================================================================================
+
+Dokumentasi ini mencakup penjelasan lengkap tentang:
+- Fitur Login & Autentikasi
+- Sidebar Admin dengan semua menu
+- Bottom Navbar untuk Pegawai
+- Controller utama (Dashboard, Pegawai, Izin)
+- Model database (User, Presensi, Izin, Jabatan)
+- Alur proses bisnis aplikasi
+- Teknologi yang digunakan
+- Catatan keamanan dan best practices
+
+Semoga dokumentasi ini membantu dalam memahami struktur dan fungsi
+kode aplikasi E-Absensi.
+
+Jika ada pertanyaan atau bagian yang perlu dijelaskan lebih detail,
+silakan hubungi developer.
+
+================================================================================
+                    END OF DOCUMENTATION
+================================================================================
