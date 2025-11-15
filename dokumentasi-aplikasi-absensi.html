@@ -7,95 +7,110 @@
     <style>
         @page {
             size: A4;
-            margin: 2.5cm;
+            margin: 4cm 3cm 3cm 4cm;
         }
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            line-height: 1.8;
+            line-height: 1.5;
             color: #000;
             max-width: 21cm;
             margin: 0 auto;
             padding: 20px;
             background: white;
             font-size: 12pt;
+            text-align: justify;
         }
 
         h1 {
-            font-size: 18pt;
+            font-size: 14pt;
             font-weight: bold;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #000;
-            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 12pt;
+            text-align: center;
+            text-transform: uppercase;
             page-break-after: avoid;
         }
 
         h1.title {
-            text-align: center;
-            font-size: 20pt;
-            border-bottom: none;
-            margin-top: 0;
-            page-break-after: avoid;
+            font-size: 16pt;
+            margin-bottom: 6pt;
         }
 
         h2 {
-            font-size: 14pt;
+            font-size: 12pt;
             font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 12pt;
+            margin-bottom: 12pt;
             page-break-after: avoid;
         }
 
         h3 {
             font-size: 12pt;
             font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 8px;
+            margin-top: 12pt;
+            margin-bottom: 12pt;
+            font-style: italic;
             page-break-after: avoid;
         }
 
         h4 {
             font-size: 12pt;
             font-weight: bold;
-            margin-top: 12px;
-            margin-bottom: 6px;
-            font-style: italic;
+            margin-top: 12pt;
+            margin-bottom: 12pt;
             page-break-after: avoid;
         }
 
         p {
             text-align: justify;
-            margin: 10px 0;
+            margin: 0;
+            margin-bottom: 12pt;
+            text-indent: 1.27cm;
+        }
+
+        p.no-indent {
+            text-indent: 0;
         }
 
         .center {
             text-align: center;
+            text-indent: 0;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 12pt 0;
             page-break-inside: avoid;
         }
 
         th, td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 6pt;
             text-align: left;
             vertical-align: top;
+            font-size: 11pt;
         }
 
         th {
             background-color: #f0f0f0;
             font-weight: bold;
+            text-align: center;
+        }
+
+        .table-title {
+            font-weight: bold;
+            margin-top: 12pt;
+            margin-bottom: 6pt;
+            text-indent: 0;
+            text-align: center;
         }
 
         code {
             font-family: 'Courier New', Courier, monospace;
             background: #f5f5f5;
-            padding: 2px 5px;
+            padding: 2px 4px;
             border: 1px solid #ddd;
             font-size: 10pt;
         }
@@ -104,21 +119,32 @@
             font-family: 'Courier New', Courier, monospace;
             background: #f5f5f5;
             border: 1px solid #000;
-            padding: 15px;
+            padding: 12pt;
             overflow-x: auto;
-            margin: 15px 0;
+            margin: 12pt 0;
             font-size: 9pt;
-            line-height: 1.4;
+            line-height: 1.3;
             page-break-inside: avoid;
+            text-align: left;
+        }
+
+        .code-title {
+            font-weight: bold;
+            margin-top: 12pt;
+            margin-bottom: 6pt;
+            text-indent: 0;
+            text-align: center;
         }
 
         ul, ol {
-            margin: 10px 0;
-            padding-left: 40px;
+            margin: 0;
+            margin-bottom: 12pt;
+            padding-left: 1.27cm;
         }
 
         li {
-            margin: 5px 0;
+            margin: 6pt 0;
+            text-align: justify;
         }
 
         .page-break {
@@ -127,14 +153,27 @@
 
         .note {
             border: 1px solid #000;
-            padding: 10px;
-            margin: 15px 0;
+            padding: 12pt;
+            margin: 12pt 0;
             background: #f9f9f9;
+        }
+
+        .note p {
+            text-indent: 0;
+            margin-bottom: 6pt;
         }
 
         .note strong {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6pt;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        strong {
+            font-weight: bold;
         }
 
         @media print {
@@ -147,113 +186,112 @@
 <body>
 
     <h1 class="title">DOKUMENTASI APLIKASI E-ABSENSI</h1>
-    <p class="center" style="font-style: italic; margin-bottom: 40px;">
-        Sistem Absensi Karyawan Berbasis GPS dan Selfie Verification
+    <p class="center" style="font-style: italic; margin-bottom: 24pt;">
+        Sistem Absensi Karyawan Berbasis <em>Global Positioning System</em> dan Verifikasi <em>Selfie</em>
     </p>
 
     <div class="note">
         <strong>Informasi Aplikasi</strong>
-        <table style="border: none; margin: 0;">
-            <tr>
-                <td style="border: none; width: 30%; padding: 3px;">Nama Aplikasi</td>
-                <td style="border: none; padding: 3px;">: E-Absensi</td>
-            </tr>
-            <tr>
-                <td style="border: none; padding: 3px;">Framework</td>
-                <td style="border: none; padding: 3px;">: Laravel (PHP)</td>
-            </tr>
-            <tr>
-                <td style="border: none; padding: 3px;">Database</td>
-                <td style="border: none; padding: 3px;">: MySQL</td>
-            </tr>
-            <tr>
-                <td style="border: none; padding: 3px;">Teknologi Utama</td>
-                <td style="border: none; padding: 3px;">: GPS Location Tracking, Selfie Verification, Haversine Formula</td>
-            </tr>
-        </table>
+        <p class="no-indent"><strong>Nama Aplikasi:</strong> E-Absensi</p>
+        <p class="no-indent"><strong><em>Framework</em>:</strong> Laravel (PHP)</p>
+        <p class="no-indent"><strong><em>Database</em>:</strong> MySQL</p>
+        <p class="no-indent"><strong>Teknologi Utama:</strong> <em>GPS Location Tracking</em>, <em>Selfie Verification</em>, <em>Haversine Formula</em></p>
     </div>
 
     <h2>DAFTAR ISI</h2>
-    <ol>
+    <ol class="no-indent">
         <li>Ringkasan Aplikasi</li>
-        <li>Sistem Autentikasi (Login & Register)</li>
-        <li>Menu Sidebar Admin</li>
-        <li>Bottom Navigation Pegawai</li>
-        <li>Database & Model</li>
-        <li>Controllers & Functions</li>
-        <li>Database Migrations</li>
-        <li>Routes (URL Mapping)</li>
+        <li>Sistem Autentikasi (<em>Login</em> dan <em>Register</em>)</li>
+        <li>Menu <em>Sidebar</em> Admin</li>
+        <li><em>Bottom Navigation</em> Pegawai</li>
+        <li><em>Database</em> dan <em>Model</em></li>
+        <li><em>Controllers</em> dan Fungsi-Fungsi</li>
+        <li><em>Database Migrations</em></li>
+        <li><em>Routes</em> (Pemetaan URL)</li>
     </ol>
 
     <div class="page-break"></div>
 
-    <h1>1. RINGKASAN APLIKASI</h1>
+    <h1>BAB I<br/>RINGKASAN APLIKASI</h1>
 
-    <p>Aplikasi E-Absensi adalah sistem manajemen kehadiran karyawan yang menggunakan teknologi GPS (Global Positioning System) dan verifikasi selfie. Aplikasi ini dirancang untuk memastikan bahwa karyawan benar-benar berada di lokasi kantor pada saat melakukan absensi dengan cara memvalidasi jarak menggunakan radius yang telah ditentukan, serta menyimpan foto sebagai bukti kehadiran.</p>
+    <p>Aplikasi E-Absensi merupakan sistem manajemen kehadiran karyawan yang menggunakan teknologi <em>Global Positioning System</em> (GPS) dan verifikasi <em>selfie</em>. Aplikasi ini dirancang untuk memastikan bahwa karyawan benar-benar berada di lokasi kantor pada saat melakukan absensi dengan cara memvalidasi jarak menggunakan radius yang telah ditentukan, serta menyimpan foto sebagai bukti kehadiran.</p>
 
     <h2>1.1 Fitur Utama Aplikasi</h2>
-    <ul>
-        <li>Absensi masuk dan pulang dengan GPS coordinates dan selfie photo</li>
-        <li>Validasi radius lokasi kantor menggunakan Haversine Formula</li>
+
+    <p>Aplikasi E-Absensi memiliki beberapa fitur utama sebagai berikut:</p>
+
+    <ol>
+        <li>Absensi masuk dan pulang dengan <em>GPS coordinates</em> dan foto <em>selfie</em></li>
+        <li>Validasi radius lokasi kantor menggunakan <em>Haversine Formula</em></li>
         <li>Deteksi keterlambatan secara otomatis berdasarkan jam kerja</li>
         <li>Deteksi lembur otomatis berdasarkan waktu pulang</li>
         <li>Manajemen pengajuan izin, sakit, dan cuti karyawan</li>
-        <li>Dashboard admin untuk monitoring real-time</li>
+        <li><em>Dashboard</em> admin untuk monitoring secara <em>real-time</em></li>
         <li>Laporan kehadiran lengkap dengan filter tanggal</li>
-    </ul>
+    </ol>
 
-    <h2>1.2 Role Pengguna</h2>
+    <h2>1.2 Peran Pengguna dalam Sistem</h2>
+
+    <p>Sistem memiliki dua peran pengguna utama yaitu Admin dan Pegawai dengan hak akses yang berbeda sebagaimana ditunjukkan pada Tabel 1.1.</p>
+
+    <p class="table-title">Tabel 1.1 Peran Pengguna dalam Sistem</p>
     <table>
         <tr>
-            <th width="20%">Role</th>
-            <th width="30%">Akses</th>
+            <th width="20%">Peran</th>
+            <th width="30%">Hak Akses</th>
             <th>Fitur</th>
         </tr>
         <tr>
             <td><strong>Admin</strong></td>
-            <td>Full system access</td>
-            <td>Dashboard, Master Data Management, Employee Management, Attendance Report, Leave Approval</td>
+            <td>Akses penuh sistem</td>
+            <td><em>Dashboard</em>, Manajemen Data Master, Manajemen Pegawai, Laporan Absensi, Persetujuan Izin dan Cuti</td>
         </tr>
         <tr>
             <td><strong>Pegawai</strong></td>
-            <td>Personal data only</td>
-            <td>Clock In/Out, Attendance History, Leave Request, Profile Management</td>
+            <td>Akses data pribadi</td>
+            <td>Absen Masuk/Pulang, Riwayat Absensi, Pengajuan Izin dan Cuti, Manajemen Profil</td>
         </tr>
     </table>
 
     <div class="page-break"></div>
 
-    <h1>2. SISTEM AUTENTIKASI (LOGIN & REGISTER)</h1>
+    <h1>BAB II<br/>SISTEM AUTENTIKASI</h1>
 
-    <h2>2.1 Login Admin</h2>
+    <h2>2.1 Autentikasi Admin</h2>
 
-    <p><strong>File Controller:</strong> <code>app/Http/Controllers/AuthController.php</code></p>
-    <p><strong>File View:</strong> <code>resources/views/auth/login/index.blade.php</code></p>
-    <p><strong>Route URL:</strong> <code>/login</code></p>
+    <p class="no-indent"><strong>Berkas <em>Controller</em>:</strong> <code>app/Http/Controllers/AuthController.php</code></p>
+    <p class="no-indent"><strong>Berkas <em>View</em>:</strong> <code>resources/views/auth/login/index.blade.php</code></p>
+    <p class="no-indent"><strong>URL <em>Route</em>:</strong> <code>/login</code></p>
 
-    <h3>2.1.1 Fungsi-Fungsi di AuthController</h3>
+    <h3>2.1.1 Fungsi-Fungsi pada <em>AuthController</em></h3>
 
+    <p><em>Controller</em> ini memiliki tiga fungsi utama untuk menangani autentikasi admin sebagaimana dijelaskan pada Tabel 2.1.</p>
+
+    <p class="table-title">Tabel 2.1 Fungsi-Fungsi pada <em>AuthController</em></p>
     <table>
         <tr>
-            <th width="30%">Function</th>
+            <th width="30%">Fungsi</th>
             <th>Deskripsi</th>
         </tr>
         <tr>
             <td><code>index()</code></td>
-            <td>Menampilkan halaman form login admin</td>
+            <td>Menampilkan halaman formulir <em>login</em> admin</td>
         </tr>
         <tr>
             <td><code>checklogin(Request $request)</code></td>
-            <td>Memvalidasi kredensial admin (email & password) dan membuat session</td>
+            <td>Memvalidasi kredensial admin (<em>email</em> dan <em>password</em>) serta membuat <em>session</em></td>
         </tr>
         <tr>
             <td><code>logout()</code></td>
-            <td>Menghapus session dan melakukan logout admin</td>
+            <td>Menghapus <em>session</em> dan melakukan <em>logout</em> admin</td>
         </tr>
     </table>
 
-    <h3>2.1.2 Kode Function index()</h3>
-    <p>Function ini menampilkan halaman login admin.</p>
+    <h3>2.1.2 Implementasi Fungsi <code>index()</code></h3>
+
+    <p>Fungsi ini menampilkan halaman <em>login</em> admin. Implementasi kode program ditunjukkan pada Kode Program 2.1.</p>
+
+    <p class="code-title">Kode Program 2.1 Fungsi <code>index()</code> pada <em>AuthController</em></p>
     <pre>
 public function index()
 {
@@ -261,17 +299,22 @@ public function index()
 }
     </pre>
 
-    <h3>2.1.3 Kode Function checklogin()</h3>
-    <p>Function ini memvalidasi kredensial login admin dengan langkah-langkah:</p>
+    <h3>2.1.3 Implementasi Fungsi <code>checklogin()</code></h3>
+
+    <p>Fungsi ini memvalidasi kredensial <em>login</em> admin dengan langkah-langkah sebagai berikut:</p>
+
     <ol>
-        <li>Menerima input email dan password dari form</li>
-        <li>Mencari user di database berdasarkan email dan role='Admin'</li>
-        <li>Memeriksa apakah password yang diinput cocok dengan password di database menggunakan Hash::check()</li>
-        <li>Jika valid, menyimpan data user ke dalam session</li>
-        <li>Redirect ke dashboard admin</li>
-        <li>Jika tidak valid, redirect kembali ke halaman login dengan pesan error</li>
+        <li>Menerima inputan <em>email</em> dan <em>password</em> dari formulir</li>
+        <li>Mencari pengguna di <em>database</em> berdasarkan <em>email</em> dan <em>role</em> yang bernilai 'Admin'</li>
+        <li>Memeriksa kesesuaian <em>password</em> yang diinputkan dengan <em>password</em> di <em>database</em> menggunakan fungsi <code>Hash::check()</code></li>
+        <li>Jika valid, menyimpan data pengguna ke dalam <em>session</em></li>
+        <li>Melakukan <em>redirect</em> ke <em>dashboard</em> admin</li>
+        <li>Jika tidak valid, melakukan <em>redirect</em> kembali ke halaman <em>login</em> dengan pesan kesalahan</li>
     </ol>
 
+    <p>Implementasi fungsi <code>checklogin()</code> ditunjukkan pada Kode Program 2.2.</p>
+
+    <p class="code-title">Kode Program 2.2 Fungsi <code>checklogin()</code> pada <em>AuthController</em></p>
     <pre>
 public function checklogin(Request $request)
 {
@@ -292,16 +335,21 @@ public function checklogin(Request $request)
         session(['user' => $user]);
 
         // Redirect ke dashboard admin
-        return redirect('/main/dashboard')->with('success', 'Login berhasil!');
+        return redirect('/main/dashboard')
+               ->with('success', 'Login berhasil!');
     }
 
     // Jika gagal, redirect kembali dengan error
-    return redirect()->back()->with('error', 'Email atau password salah!');
+    return redirect()->back()
+           ->with('error', 'Email atau password salah!');
 }
     </pre>
 
-    <h3>2.1.4 Kode Function logout()</h3>
-    <p>Function ini menghapus session user dan redirect ke halaman login.</p>
+    <h3>2.1.4 Implementasi Fungsi <code>logout()</code></h3>
+
+    <p>Fungsi ini menghapus <em>session</em> pengguna dan melakukan <em>redirect</em> ke halaman <em>login</em>. Implementasi ditunjukkan pada Kode Program 2.3.</p>
+
+    <p class="code-title">Kode Program 2.3 Fungsi <code>logout()</code> pada <em>AuthController</em></p>
     <pre>
 public function logout()
 {
@@ -309,42 +357,48 @@ public function logout()
     session()->forget('user');
 
     // Redirect ke halaman login
-    return redirect('/login')->with('success', 'Logout berhasil!');
+    return redirect('/login')
+           ->with('success', 'Logout berhasil!');
 }
     </pre>
 
     <div class="page-break"></div>
 
-    <h2>2.2 Login Pegawai</h2>
+    <h2>2.2 Autentikasi Pegawai</h2>
 
-    <p><strong>File Controller:</strong> <code>app/Http/Controllers/HomeController.php</code></p>
-    <p><strong>File View:</strong> <code>resources/views/pegawai/home/index.blade.php</code></p>
-    <p><strong>Route URL:</strong> <code>/</code> (homepage)</p>
+    <p class="no-indent"><strong>Berkas <em>Controller</em>:</strong> <code>app/Http/Controllers/HomeController.php</code></p>
+    <p class="no-indent"><strong>Berkas <em>View</em>:</strong> <code>resources/views/pegawai/home/index.blade.php</code></p>
+    <p class="no-indent"><strong>URL <em>Route</em>:</strong> <code>/</code> (<em>homepage</em>)</p>
 
-    <h3>2.2.1 Fungsi Login di HomeController</h3>
+    <h3>2.2.1 Fungsi-Fungsi <em>Login</em> pada <em>HomeController</em></h3>
 
+    <p>Fungsi-fungsi autentikasi pegawai pada <em>HomeController</em> dijelaskan pada Tabel 2.2.</p>
+
+    <p class="table-title">Tabel 2.2 Fungsi-Fungsi <em>Login</em> Pegawai</p>
     <table>
         <tr>
-            <th width="30%">Function</th>
+            <th width="30%">Fungsi</th>
             <th>Deskripsi</th>
         </tr>
         <tr>
             <td><code>index()</code></td>
-            <td>Menampilkan halaman landing page / form login pegawai</td>
+            <td>Menampilkan halaman <em>landing page</em> atau formulir <em>login</em> pegawai</td>
         </tr>
         <tr>
             <td><code>checklogin(Request $request)</code></td>
-            <td>Memvalidasi kredensial pegawai (NIK & password) dengan role='Pegawai'</td>
+            <td>Memvalidasi kredensial pegawai (NIK dan <em>password</em>) dengan <em>role</em> 'Pegawai'</td>
         </tr>
         <tr>
             <td><code>logout()</code></td>
-            <td>Logout pegawai dan menghapus session</td>
+            <td>Melakukan <em>logout</em> pegawai dan menghapus <em>session</em></td>
         </tr>
     </table>
 
-    <h3>2.2.2 Kode Function checklogin() untuk Pegawai</h3>
-    <p>Berbeda dengan admin yang login menggunakan email, pegawai login menggunakan NIK (Nomor Induk Karyawan).</p>
+    <h3>2.2.2 Implementasi Fungsi <code>checklogin()</code> untuk Pegawai</h3>
 
+    <p>Berbeda dengan admin yang menggunakan <em>email</em> untuk <em>login</em>, pegawai menggunakan NIK (Nomor Induk Karyawan). Implementasi ditunjukkan pada Kode Program 2.4.</p>
+
+    <p class="code-title">Kode Program 2.4 Fungsi <code>checklogin()</code> untuk Pegawai</p>
     <pre>
 public function checklogin(Request $request)
 {
@@ -365,52 +419,57 @@ public function checklogin(Request $request)
         session(['user' => $user]);
 
         // Redirect ke dashboard pegawai
-        return redirect('/pegawai/home')->with('success', 'Login berhasil!');
+        return redirect('/pegawai/home')
+               ->with('success', 'Login berhasil!');
     }
 
     // Jika gagal, redirect kembali dengan error
-    return redirect()->back()->with('error', 'NIK atau password salah!');
+    return redirect()->back()
+           ->with('error', 'NIK atau password salah!');
 }
     </pre>
 
     <div class="note">
-        <strong>Perbedaan Login Admin vs Pegawai:</strong>
-        <ul style="margin: 5px 0;">
-            <li><strong>Admin:</strong> Login menggunakan <code>email</code> + <code>password</code></li>
-            <li><strong>Pegawai:</strong> Login menggunakan <code>NIK</code> + <code>password</code></li>
-            <li>Keduanya divalidasi berdasarkan field <code>role</code> yang ada di tabel <code>users</code></li>
-            <li>Session disimpan dengan key yang sama yaitu <code>'user'</code></li>
-        </ul>
+        <strong>Perbedaan Autentikasi Admin dan Pegawai</strong>
+        <p><strong>Admin:</strong> Menggunakan <em>email</em> dan <em>password</em> untuk <em>login</em></p>
+        <p><strong>Pegawai:</strong> Menggunakan NIK dan <em>password</em> untuk <em>login</em></p>
+        <p>Kedua autentikasi divalidasi berdasarkan <em>field role</em> yang ada di tabel <code>users</code></p>
+        <p><em>Session</em> disimpan dengan <em>key</em> yang sama yaitu <code>'user'</code></p>
     </div>
 
     <div class="page-break"></div>
 
     <h2>2.3 Registrasi Pegawai</h2>
 
-    <p><strong>File Controller:</strong> <code>app/Http/Controllers/HomeController.php</code></p>
-    <p><strong>File View:</strong> <code>resources/views/pegawai/register/index.blade.php</code></p>
-    <p><strong>Route URL:</strong> <code>/home/register</code></p>
+    <p class="no-indent"><strong>Berkas <em>Controller</em>:</strong> <code>app/Http/Controllers/HomeController.php</code></p>
+    <p class="no-indent"><strong>Berkas <em>View</em>:</strong> <code>resources/views/pegawai/register/index.blade.php</code></p>
+    <p class="no-indent"><strong>URL <em>Route</em>:</strong> <code>/home/register</code></p>
 
-    <h3>2.3.1 Fungsi Registrasi di HomeController</h3>
+    <h3>2.3.1 Fungsi-Fungsi Registrasi</h3>
 
+    <p>Proses registrasi pegawai melibatkan dua fungsi utama yang dijelaskan pada Tabel 2.3.</p>
+
+    <p class="table-title">Tabel 2.3 Fungsi-Fungsi Registrasi Pegawai</p>
     <table>
         <tr>
-            <th width="30%">Function</th>
+            <th width="30%">Fungsi</th>
             <th>Deskripsi</th>
         </tr>
         <tr>
             <td><code>register()</code></td>
-            <td>Menampilkan form registrasi dengan dropdown Jabatan, Jam Kerja, dan Lokasi Penempatan</td>
+            <td>Menampilkan formulir registrasi dengan <em>dropdown</em> Jabatan, Jam Kerja, dan Lokasi Penempatan</td>
         </tr>
         <tr>
             <td><code>saveregister(Request $request)</code></td>
-            <td>Menyimpan data pegawai baru ke database dengan role 'Pegawai'</td>
+            <td>Menyimpan data pegawai baru ke <em>database</em> dengan <em>role</em> 'Pegawai'</td>
         </tr>
     </table>
 
-    <h3>2.3.2 Kode Function register()</h3>
-    <p>Function ini menampilkan form registrasi dengan dropdown yang diambil dari database.</p>
+    <h3>2.3.2 Implementasi Fungsi <code>register()</code></h3>
 
+    <p>Fungsi ini menampilkan formulir registrasi dengan <em>dropdown</em> yang diambil dari <em>database</em>. Implementasi ditunjukkan pada Kode Program 2.5.</p>
+
+    <p class="code-title">Kode Program 2.5 Fungsi <code>register()</code></p>
     <pre>
 public function register()
 {
@@ -424,20 +483,26 @@ public function register()
     $radiusKantors = RadiusKantor::with('lokasiPenempatan')->get();
 
     // Kirim data ke view
-    return view('pegawai.register.index', compact('jabatans', 'jamKerjas', 'radiusKantors'));
+    return view('pegawai.register.index',
+                compact('jabatans', 'jamKerjas', 'radiusKantors'));
 }
     </pre>
 
-    <h3>2.3.3 Kode Function saveregister()</h3>
-    <p>Function ini memproses data registrasi pegawai baru dengan langkah-langkah:</p>
+    <h3>2.3.3 Implementasi Fungsi <code>saveregister()</code></h3>
+
+    <p>Fungsi ini memproses data registrasi pegawai baru dengan tahapan sebagai berikut:</p>
+
     <ol>
-        <li>Validasi semua input yang diterima dari form</li>
-        <li>Hash password menggunakan bcrypt untuk keamanan</li>
-        <li>Set role secara otomatis menjadi 'Pegawai'</li>
-        <li>Simpan data ke tabel users</li>
-        <li>Redirect ke halaman login dengan pesan sukses</li>
+        <li>Validasi semua inputan yang diterima dari formulir</li>
+        <li>Melakukan <em>hashing</em> terhadap <em>password</em> menggunakan algoritma <em>bcrypt</em> untuk keamanan</li>
+        <li>Mengatur <em>role</em> secara otomatis menjadi 'Pegawai'</li>
+        <li>Menyimpan data ke tabel <code>users</code></li>
+        <li>Melakukan <em>redirect</em> ke halaman <em>login</em> dengan pesan sukses</li>
     </ol>
 
+    <p>Implementasi lengkap ditunjukkan pada Kode Program 2.6.</p>
+
+    <p class="code-title">Kode Program 2.6 Fungsi <code>saveregister()</code></p>
     <pre>
 public function saveregister(Request $request)
 {
@@ -457,29 +522,34 @@ public function saveregister(Request $request)
     $user->nik = $request->nik;
     $user->name = $request->name;
     $user->email = $request->email;
-    $user->password = bcrypt($request->password); // Hash password
-    $user->role = 'Pegawai'; // Set role otomatis
+    $user->password = bcrypt($request->password);
+    $user->role = 'Pegawai';
     $user->jabatan_id = $request->jabatan_id;
     $user->jam_kerja_id = $request->jam_kerja_id;
     $user->radius_kantor_id = $request->radius_kantor_id;
     $user->save();
 
     // Redirect ke halaman login
-    return redirect('/')->with('success', 'Registrasi berhasil! Silakan login.');
+    return redirect('/')
+           ->with('success', 'Registrasi berhasil! Silakan login.');
 }
     </pre>
 
-    <h3>2.3.4 Field yang Wajib Diisi saat Registrasi</h3>
+    <h3>2.3.4 Data yang Wajib Diisi pada Registrasi</h3>
+
+    <p>Tabel 2.4 menjelaskan <em>field</em>-<em>field</em> yang wajib diisi saat melakukan registrasi.</p>
+
+    <p class="table-title">Tabel 2.4 <em>Field</em> yang Wajib Diisi pada Registrasi</p>
     <table>
         <tr>
-            <th width="25%">Field</th>
+            <th width="25%"><em>Field</em></th>
             <th width="15%">Tipe Data</th>
             <th>Keterangan</th>
         </tr>
         <tr>
             <td>NIK</td>
             <td>String</td>
-            <td>Nomor Induk Karyawan (harus unique, tidak boleh duplikat)</td>
+            <td>Nomor Induk Karyawan (harus unik, tidak boleh duplikat)</td>
         </tr>
         <tr>
             <td>Nama</td>
@@ -489,2095 +559,46 @@ public function saveregister(Request $request)
         <tr>
             <td>Email</td>
             <td>String</td>
-            <td>Email aktif pegawai (harus unique dan format valid)</td>
+            <td>Alamat email aktif pegawai (harus unik dan format valid)</td>
         </tr>
         <tr>
             <td>Password</td>
             <td>String</td>
-            <td>Password untuk login (minimal 6 karakter, akan di-hash dengan bcrypt)</td>
+            <td>Kata sandi untuk <em>login</em> (minimal 6 karakter, akan di-<em>hash</em> dengan <em>bcrypt</em>)</td>
         </tr>
         <tr>
             <td>Jabatan</td>
             <td>Foreign Key</td>
-            <td>Pilih dari dropdown master data Jabatan (relasi ke tabel jabatans)</td>
+            <td>Dipilih dari <em>dropdown</em> data master Jabatan (relasi ke tabel <code>jabatans</code>)</td>
         </tr>
         <tr>
             <td>Jam Kerja</td>
             <td>Foreign Key</td>
-            <td>Pilih dari dropdown master data Jam Kerja (relasi ke tabel jam_kerjas)</td>
+            <td>Dipilih dari <em>dropdown</em> data master Jam Kerja (relasi ke tabel <code>jam_kerjas</code>)</td>
         </tr>
         <tr>
             <td>Lokasi Penempatan</td>
             <td>Foreign Key</td>
-            <td>Pilih dari dropdown master data Radius Kantor (relasi ke tabel radius_kantors)</td>
+            <td>Dipilih dari <em>dropdown</em> data master Radius Kantor (relasi ke tabel <code>radius_kantors</code>)</td>
         </tr>
     </table>
 
-    <div class="page-break"></div>
-
-    <h1>3. MENU SIDEBAR ADMIN</h1>
-
-    <p><strong>File:</strong> <code>resources/views/admin/layouts/sidebar.blade.php</code></p>
-    <p><strong>Middleware:</strong> <code>auth</code> (hanya dapat diakses oleh user dengan role Admin)</p>
-
-    <h2>3.1 Struktur Menu Sidebar</h2>
-    <table>
-        <tr>
-            <th width="25%">Menu Utama</th>
-            <th width="30%">Sub Menu</th>
-            <th>Controller & Function</th>
-        </tr>
-        <tr>
-            <td><strong>Dashboard</strong></td>
-            <td>-</td>
-            <td>DashboardController@index</td>
-        </tr>
-        <tr>
-            <td rowspan="4"><strong>Master Data</strong></td>
-            <td>Jabatan</td>
-            <td>JabatanController@index</td>
-        </tr>
-        <tr>
-            <td>Lokasi Penempatan</td>
-            <td>LokasiPenempatanController@index</td>
-        </tr>
-        <tr>
-            <td>Jam Kerja</td>
-            <td>JamKerjaController@index</td>
-        </tr>
-        <tr>
-            <td>Radius Kantor</td>
-            <td>RadiusKantorController@index</td>
-        </tr>
-        <tr>
-            <td><strong>Data Pegawai</strong></td>
-            <td>-</td>
-            <td>DashboardController@pegawai</td>
-        </tr>
-        <tr>
-            <td><strong>Data Absensi</strong></td>
-            <td>-</td>
-            <td>DashboardController@absen</td>
-        </tr>
-        <tr>
-            <td><strong>Data Izin/Sakit</strong></td>
-            <td>-</td>
-            <td>DashboardController@izin</td>
-        </tr>
-        <tr>
-            <td><strong>Data Cuti Pegawai</strong></td>
-            <td>-</td>
-            <td>DashboardController@cuti</td>
-        </tr>
-    </table>
-
-    <h2>3.2 Detail Menu Dashboard</h2>
-    <p>Menu dashboard menampilkan statistik dan overview sistem secara real-time.</p>
-
-    <h3>3.2.1 Kode Function index() di DashboardController</h3>
-    <pre>
-public function index()
-{
-    // Hitung total pegawai dengan role 'Pegawai'
-    $totalPegawai = User::where('role', 'Pegawai')->count();
-
-    // Hitung total pengajuan cuti yang masih pending
-    $totalCuti = Izin::where('jenis', 'Cuti')
-                     ->where('status', 'Pending')
-                     ->count();
-
-    // Hitung total pengajuan izin yang masih pending
-    $totalIzin = Izin::where('jenis', 'Izin')
-                     ->where('status', 'Pending')
-                     ->count();
-
-    // Hitung total pengajuan sakit yang masih pending
-    $totalSakit = Izin::where('jenis', 'Sakit')
-                      ->where('status', 'Pending')
-                      ->count();
-
-    // Ambil data absen masuk hari ini
-    $absenMasukHariIni = Presensi::with('user')
-                                 ->whereDate('datein', Carbon::today())
-                                 ->orderBy('in', 'desc')
-                                 ->get();
-
-    // Ambil data absen pulang hari ini
-    $absenPulangHariIni = Presensi::with('user')
-                                  ->whereDate('dateout', Carbon::today())
-                                  ->whereNotNull('out')
-                                  ->orderBy('out', 'desc')
-                                  ->get();
-
-    // Kirim semua data ke view
-    return view('admin.dashboard.index', compact(
-        'totalPegawai',
-        'totalCuti',
-        'totalIzin',
-        'totalSakit',
-        'absenMasukHariIni',
-        'absenPulangHariIni'
-    ));
-}
-    </pre>
-
-    <p><strong>Data yang ditampilkan di Dashboard:</strong></p>
-    <ul>
-        <li>Total pegawai aktif dalam sistem</li>
-        <li>Total pengajuan cuti yang menunggu approval</li>
-        <li>Total pengajuan izin yang menunggu approval</li>
-        <li>Total pengajuan sakit yang menunggu approval</li>
-        <li>Daftar pegawai yang sudah absen masuk hari ini dengan waktu dan status</li>
-        <li>Daftar pegawai yang sudah absen pulang hari ini dengan waktu dan status lembur</li>
-    </ul>
-
-    <div class="page-break"></div>
-
-    <h2>3.3 Master Data - Jabatan</h2>
-    <p><strong>Controller:</strong> <code>app/Http/Controllers/JabatanController.php</code></p>
-    <p><strong>Model:</strong> <code>app/Models/Jabatan.php</code></p>
-    <p><strong>Fungsi:</strong> Mengelola data jabatan/posisi pegawai (CRUD - Create, Read, Update, Delete)</p>
-
-    <h3>3.3.1 Kode Function store() - Menyimpan Jabatan Baru</h3>
-    <pre>
-public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'name' => 'required|string|max:255|unique:jabatans,name'
-    ]);
-
-    // Buat jabatan baru
-    $jabatan = new Jabatan();
-    $jabatan->name = $request->name;
-    $jabatan->save();
-
-    // Redirect dengan pesan sukses
-    return redirect('/main/jabatan')->with('success', 'Jabatan berhasil ditambahkan!');
-}
-    </pre>
-
-    <h3>3.3.2 Kode Function update() - Mengupdate Jabatan</h3>
-    <pre>
-public function update(Request $request, $id)
-{
-    // Validasi input (unique kecuali untuk id yang sedang diedit)
-    $request->validate([
-        'name' => 'required|string|max:255|unique:jabatans,name,' . $id
-    ]);
-
-    // Cari jabatan berdasarkan id
-    $jabatan = Jabatan::findOrFail($id);
-
-    // Update data
-    $jabatan->name = $request->name;
-    $jabatan->save();
-
-    // Redirect dengan pesan sukses
-    return redirect('/main/jabatan')->with('success', 'Jabatan berhasil diupdate!');
-}
-    </pre>
-
-    <h3>3.3.3 Kode Function destroy() - Menghapus Jabatan</h3>
-    <pre>
-public function destroy($id)
-{
-    // Cari jabatan berdasarkan id
-    $jabatan = Jabatan::findOrFail($id);
-
-    // Cek apakah ada pegawai yang menggunakan jabatan ini
-    $countUsers = User::where('jabatan_id', $id)->count();
-
-    if ($countUsers > 0) {
-        // Jika ada pegawai yang menggunakan, jangan hapus
-        return redirect()->back()->with('error',
-            'Jabatan tidak dapat dihapus karena masih digunakan oleh ' . $countUsers . ' pegawai!');
-    }
-
-    // Hapus jabatan
-    $jabatan->delete();
-
-    // Redirect dengan pesan sukses
-    return redirect('/main/jabatan')->with('success', 'Jabatan berhasil dihapus!');
-}
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h2>3.4 Master Data - Jam Kerja</h2>
-    <p><strong>Controller:</strong> <code>app/Http/Controllers/JamKerjaController.php</code></p>
-    <p><strong>Model:</strong> <code>app/Models/JamKerja.php</code></p>
-
-    <h3>3.4.1 Field yang Dikelola</h3>
-    <table>
-        <tr>
-            <th width="20%">Field</th>
-            <th width="15%">Tipe</th>
-            <th>Keterangan</th>
-        </tr>
-        <tr>
-            <td>in</td>
-            <td>Time</td>
-            <td>Jam masuk kerja (format: HH:MM:SS, contoh: 08:00:00)</td>
-        </tr>
-        <tr>
-            <td>out</td>
-            <td>Time</td>
-            <td>Jam pulang kerja (format: HH:MM:SS, contoh: 17:00:00)</td>
-        </tr>
-        <tr>
-            <td>lembur</td>
-            <td>Time</td>
-            <td>Jam mulai lembur (format: HH:MM:SS, contoh: 19:00:00)</td>
-        </tr>
-    </table>
-
-    <h3>3.4.2 Kode Function store() - Menyimpan Jam Kerja Baru</h3>
-    <pre>
-public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'in' => 'required|date_format:H:i:s',
-        'out' => 'required|date_format:H:i:s',
-        'lembur' => 'required|date_format:H:i:s'
-    ]);
-
-    // Buat jam kerja baru
-    $jamKerja = new JamKerja();
-    $jamKerja->in = $request->in;
-    $jamKerja->out = $request->out;
-    $jamKerja->lembur = $request->lembur;
-    $jamKerja->save();
-
-    return redirect('/main/jamkerja')->with('success', 'Jam kerja berhasil ditambahkan!');
-}
-    </pre>
-
-    <h2>3.5 Master Data - Radius Kantor</h2>
-    <p><strong>Controller:</strong> <code>app/Http/Controllers/RadiusKantorController.php</code></p>
-    <p><strong>Model:</strong> <code>app/Models/RadiusKantor.php</code></p>
-
-    <h3>3.5.1 Field yang Dikelola</h3>
-    <table>
-        <tr>
-            <th width="25%">Field</th>
-            <th width="15%">Tipe</th>
-            <th>Keterangan</th>
-        </tr>
-        <tr>
-            <td>lokasi_penempatan_id</td>
-            <td>Foreign Key</td>
-            <td>ID lokasi penempatan (relasi ke tabel lokasi_penempatans)</td>
-        </tr>
-        <tr>
-            <td>lat</td>
-            <td>Decimal(10,8)</td>
-            <td>Latitude koordinat GPS kantor (contoh: -6.2088000)</td>
-        </tr>
-        <tr>
-            <td>long</td>
-            <td>Decimal(11,8)</td>
-            <td>Longitude koordinat GPS kantor (contoh: 106.8456000)</td>
-        </tr>
-        <tr>
-            <td>radius</td>
-            <td>Integer</td>
-            <td>Jarak radius dalam meter (contoh: 100 berarti 100 meter)</td>
-        </tr>
-    </table>
-
-    <h3>3.5.2 Kode Function store() - Menyimpan Radius Kantor</h3>
-    <pre>
-public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'lokasi_penempatan_id' => 'required|exists:lokasi_penempatans,id',
-        'lat' => 'required|numeric|between:-90,90',
-        'long' => 'required|numeric|between:-180,180',
-        'radius' => 'required|integer|min:1'
-    ]);
-
-    // Buat radius kantor baru
-    $radiusKantor = new RadiusKantor();
-    $radiusKantor->lokasi_penempatan_id = $request->lokasi_penempatan_id;
-    $radiusKantor->lat = $request->lat;
-    $radiusKantor->long = $request->long;
-    $radiusKantor->radius = $request->radius;
-    $radiusKantor->save();
-
-    return redirect('/main/radius')->with('success', 'Radius kantor berhasil ditambahkan!');
-}
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h2>3.6 Data Absensi</h2>
-    <p><strong>Controller Function:</strong> <code>DashboardController@absen()</code></p>
-    <p>Menu ini menampilkan semua data absensi pegawai dengan fitur filter berdasarkan range tanggal.</p>
-
-    <h3>3.6.1 Kode Function absen() dengan Filter Tanggal</h3>
-    <pre>
-public function absen(Request $request)
-{
-    // Cek apakah ada filter tanggal
-    if ($request->has('dari') && $request->has('sampai')) {
-        // Jika ada filter, ambil data sesuai range tanggal
-        $presensis = Presensi::with(['user', 'user.jabatan'])
-                            ->whereBetween('datein', [$request->dari, $request->sampai])
-                            ->orderBy('datein', 'desc')
-                            ->orderBy('in', 'desc')
-                            ->get();
-    } else {
-        // Jika tidak ada filter, ambil semua data
-        $presensis = Presensi::with(['user', 'user.jabatan'])
-                            ->orderBy('datein', 'desc')
-                            ->orderBy('in', 'desc')
-                            ->get();
-    }
-
-    return view('admin.absen.index', compact('presensis'));
-}
-    </pre>
-
-    <p><strong>Penjelasan Kode:</strong></p>
-    <ul>
-        <li><code>with(['user', 'user.jabatan'])</code> = Eager loading untuk menghindari N+1 query problem, mengambil data user dan jabatan sekaligus</li>
-        <li><code>whereBetween('datein', [$request->dari, $request->sampai])</code> = Filter data absensi yang datenya berada di antara tanggal dari dan sampai</li>
-        <li><code>orderBy('datein', 'desc')</code> = Urutkan berdasarkan tanggal terbaru</li>
-        <li><code>orderBy('in', 'desc')</code> = Urutkan berdasarkan jam masuk terbaru</li>
-    </ul>
-
-    <h3>3.6.2 Kode Function detailAbsen() - Melihat Detail Absensi Masuk</h3>
-    <pre>
-public function detailAbsen($id)
-{
-    // Ambil data presensi berdasarkan id dengan eager loading user
-    $presensi = Presensi::with('user')->findOrFail($id);
-
-    // Kirim ke view
-    return view('admin.absen.detail', compact('presensi'));
-}
-    </pre>
-
-    <p><strong>Data yang ditampilkan di halaman detail:</strong></p>
-    <ul>
-        <li>Foto selfie saat absen masuk (foto_in)</li>
-        <li>Koordinat GPS lokasi absen (latitude dan longitude)</li>
-        <li>Waktu absen masuk (in)</li>
-        <li>Tanggal absen (datein)</li>
-        <li>Status kehadiran (Masuk atau Terlambat)</li>
-        <li>Peta lokasi dengan marker untuk visualisasi GPS coordinates</li>
-    </ul>
-
-    <div class="page-break"></div>
-
-    <h2>3.7 Data Izin/Sakit - Sistem Approval</h2>
-    <p><strong>Controller Function:</strong> <code>DashboardController@izin()</code></p>
-
-    <h3>3.7.1 Kode Function izin() - Menampilkan Daftar Pengajuan</h3>
-    <pre>
-public function izin()
-{
-    // Ambil semua data izin dan sakit dengan eager loading user
-    $izins = Izin::with('user')
-                ->whereIn('jenis', ['Izin', 'Sakit'])
-                ->orderBy('created_at', 'desc')
-                ->get();
-
-    return view('admin.izin.index', compact('izins'));
-}
-    </pre>
-
-    <h3>3.7.2 Kode Function approve() - Menyetujui Pengajuan Izin</h3>
-    <pre>
-public function approve($id)
-{
-    // Cari data izin berdasarkan id
-    $izin = Izin::findOrFail($id);
-
-    // Update status menjadi 'Disetujui'
-    $izin->status = 'Disetujui';
-    $izin->save();
-
-    // Redirect dengan pesan sukses
-    return redirect()->back()->with('success',
-        'Pengajuan ' . $izin->jenis . ' berhasil disetujui!');
-}
-    </pre>
-
-    <h3>3.7.3 Kode Function reject() - Menolak Pengajuan Izin</h3>
-    <pre>
-public function reject($id)
-{
-    // Cari data izin berdasarkan id
-    $izin = Izin::findOrFail($id);
-
-    // Update status menjadi 'Ditolak'
-    $izin->status = 'Ditolak';
-    $izin->save();
-
-    // Redirect dengan pesan error
-    return redirect()->back()->with('error',
-        'Pengajuan ' . $izin->jenis . ' ditolak!');
-}
-    </pre>
-
-    <p><strong>Penjelasan Flow Approval:</strong></p>
-    <ol>
-        <li>Pegawai mengajukan izin/sakit melalui menu Izin di aplikasi pegawai</li>
-        <li>Data tersimpan di database dengan status default 'Pending'</li>
-        <li>Admin melihat daftar pengajuan di menu "Data Izin/Sakit"</li>
-        <li>Admin dapat melihat detail pengajuan (tanggal, alasan, foto pendukung jika ada)</li>
-        <li>Admin klik tombol "Approve" atau "Reject"</li>
-        <li>Status di database berubah menjadi 'Disetujui' atau 'Ditolak'</li>
-        <li>Pegawai dapat melihat status terbaru di menu Izin mereka</li>
-    </ol>
-
-    <div class="page-break"></div>
-
-    <h1>4. BOTTOM NAVIGATION PEGAWAI</h1>
-
-    <p><strong>File:</strong> <code>resources/views/pegawai/layouts/bottomnav.blade.php</code></p>
-    <p><strong>Middleware:</strong> <code>auth.check</code> (Custom PegawaiMiddleware)</p>
-    <p>Bottom navigation adalah menu navigasi yang terletak di bagian bawah layar, dirancang khusus untuk penggunaan mobile-friendly.</p>
-
-    <h2>4.1 Struktur Bottom Navigation</h2>
-    <table>
-        <tr>
-            <th width="15%">Icon</th>
-            <th width="20%">Menu</th>
-            <th width="30%">Route URL</th>
-            <th>Fungsi</th>
-        </tr>
-        <tr>
-            <td>Home</td>
-            <td>Home</td>
-            <td>/pegawai/home</td>
-            <td>Dashboard pegawai, menampilkan ringkasan absensi hari ini</td>
-        </tr>
-        <tr>
-            <td>History</td>
-            <td>Histori</td>
-            <td>/pegawai/histori</td>
-            <td>Melihat riwayat absensi (masuk dan pulang)</td>
-        </tr>
-        <tr>
-            <td>Camera</td>
-            <td>Absen</td>
-            <td>/pegawai/absen</td>
-            <td>Fitur utama: Absensi masuk/pulang dengan kamera dan GPS</td>
-        </tr>
-        <tr>
-            <td>Document</td>
-            <td>Izin</td>
-            <td>/pegawai/izin</td>
-            <td>Pengajuan izin, sakit, dan cuti</td>
-        </tr>
-        <tr>
-            <td>Person</td>
-            <td>Profile</td>
-            <td>/pegawai/profile</td>
-            <td>Melihat dan mengupdate profil pegawai</td>
-        </tr>
-    </table>
-
-    <h2>4.2 Fitur Absen (Kamera) - Fitur Utama Aplikasi</h2>
-    <p><strong>Controller:</strong> <code>app/Http/Controllers/PegawaiController.php</code></p>
-    <p>Fitur ini merupakan inti dari aplikasi E-Absensi yang menggunakan teknologi GPS dan Selfie Verification.</p>
-
-    <h3>4.2.1 Kode Function absen() - Menampilkan Halaman Absensi</h3>
-    <pre>
-public function absen()
-{
-    // Ambil data user yang sedang login
-    $user = auth()->user();
-
-    // Cek apakah user sudah absen masuk hari ini
-    $presensiHariIni = Presensi::where('user_id', $user->id)
-                               ->whereDate('datein', Carbon::today())
-                               ->first();
-
-    // Ambil data radius kantor user untuk validasi GPS
-    $radiusKantor = RadiusKantor::find($user->radius_kantor_id);
-
-    // Kirim data ke view
-    return view('pegawai.absen.index', compact('presensiHariIni', 'radiusKantor'));
-}
-    </pre>
-
-    <p><strong>Penjelasan:</strong></p>
-    <ul>
-        <li>Function ini mengecek apakah pegawai sudah absen masuk hari ini</li>
-        <li>Jika sudah absen masuk, tombol yang muncul adalah "Absen Pulang"</li>
-        <li>Jika belum absen masuk, tombol yang muncul adalah "Absen Masuk"</li>
-        <li>Data radius kantor diperlukan untuk validasi GPS di frontend</li>
-    </ul>
-
-    <div class="page-break"></div>
-
-    <h3>4.2.2 Kode Function saveabsen() - Menyimpan Absensi Masuk</h3>
-    <p>Function ini memproses absensi masuk dengan validasi GPS dan menyimpan foto selfie.</p>
-
-    <pre>
-public function saveabsen(Request $request)
-{
-    // Ambil data user yang login
-    $user = auth()->user();
-
-    // Validasi input
-    $request->validate([
-        'foto' => 'required',
-        'lat' => 'required|numeric',
-        'long' => 'required|numeric'
-    ]);
-
-    // Cek apakah sudah absen hari ini
-    $cekAbsen = Presensi::where('user_id', $user->id)
-                        ->whereDate('datein', Carbon::today())
-                        ->first();
-
-    if ($cekAbsen) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Anda sudah absen masuk hari ini!'
-        ]);
-    }
-
-    // Ambil data radius kantor user
-    $radiusKantor = RadiusKantor::find($user->radius_kantor_id);
-
-    // Hitung jarak antara lokasi user dengan kantor menggunakan Haversine Formula
-    $jarak = $this->calculateDistance(
-        $request->lat,
-        $request->long,
-        $radiusKantor->lat,
-        $radiusKantor->long
-    );
-
-    // Validasi apakah user berada dalam radius kantor
-    if ($jarak > $radiusKantor->radius) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Anda berada di luar radius kantor! Jarak Anda: ' . round($jarak) . ' meter'
-        ]);
-    }
-
-    // Decode foto dari base64
-    $image = $request->foto;
-    $image = str_replace('data:image/jpeg;base64,', '', $image);
-    $image = str_replace(' ', '+', $image);
-    $imageName = 'absen_masuk_' . time() . '_' . $user->id . '.jpg';
-
-    // Simpan foto ke storage
-    Storage::disk('public')->put('images/' . $imageName, base64_decode($image));
-
-    // Ambil jam kerja user
-    $jamKerja = JamKerja::find($user->jam_kerja_id);
-
-    // Waktu sekarang
-    $waktuSekarang = Carbon::now('Asia/Jakarta');
-    $jamSekarang = $waktuSekarang->format('H:i:s');
-
-    // Cek keterlambatan
-    $status = 'Masuk';
-    $keterangan = 'Tepat waktu';
-
-    if ($jamSekarang > $jamKerja->in) {
-        $status = 'Terlambat';
-        $terlambat = Carbon::parse($jamSekarang)->diffInMinutes(Carbon::parse($jamKerja->in));
-        $keterangan = 'Terlambat ' . $terlambat . ' menit';
-    }
-
-    // Simpan data absensi ke database
-    $presensi = new Presensi();
-    $presensi->user_id = $user->id;
-    $presensi->in = $jamSekarang;
-    $presensi->foto_in = 'storage/images/' . $imageName;
-    $presensi->lat = $request->lat;
-    $presensi->long = $request->long;
-    $presensi->datein = $waktuSekarang->toDateString();
-    $presensi->masuk = $status;
-    $presensi->keterangan = $keterangan;
-    $presensi->save();
-
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Absen masuk berhasil! Status: ' . $status
-    ]);
-}
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h3>4.2.3 Penjelasan Detail Proses Absensi Masuk</h3>
-
-    <p><strong>1. Validasi Input</strong></p>
-    <p>Sistem memvalidasi 3 input yang diterima dari frontend:</p>
-    <ul>
-        <li><code>foto</code> - Data gambar dalam format base64 dari kamera</li>
-        <li><code>lat</code> - Latitude koordinat GPS lokasi pegawai</li>
-        <li><code>long</code> - Longitude koordinat GPS lokasi pegawai</li>
-    </ul>
-
-    <p><strong>2. Cek Duplikasi Absensi</strong></p>
-    <p>Sistem mengecek apakah pegawai sudah melakukan absensi masuk pada hari yang sama. Jika sudah, sistem akan menolak dan mengirim pesan error. Ini mencegah pegawai melakukan absensi masuk lebih dari satu kali per hari.</p>
-
-    <p><strong>3. Validasi Radius GPS</strong></p>
-    <p>Sistem menghitung jarak antara lokasi pegawai dengan lokasi kantor menggunakan Haversine Formula. Jika jarak melebihi radius yang ditentukan, absensi akan ditolak. Contoh: jika radius kantor 100 meter dan pegawai berada 150 meter dari kantor, maka absensi ditolak.</p>
-
-    <p><strong>4. Proses Foto Selfie</strong></p>
-    <p>Foto yang dikirim dari frontend berbentuk base64 string. Proses yang dilakukan:</p>
-    <ul>
-        <li>Menghapus prefix "data:image/jpeg;base64," dari string</li>
-        <li>Mengganti spasi dengan tanda plus (+)</li>
-        <li>Membuat nama file unik dengan format: absen_masuk_timestamp_userid.jpg</li>
-        <li>Decode base64 menjadi binary data</li>
-        <li>Simpan ke folder storage/app/public/images/</li>
-    </ul>
-
-    <p><strong>5. Deteksi Keterlambatan</strong></p>
-    <p>Sistem membandingkan waktu absen dengan jam kerja yang ditentukan:</p>
-    <ul>
-        <li>Jika waktu absen lebih kecil atau sama dengan jam masuk: Status = "Masuk"</li>
-        <li>Jika waktu absen lebih besar dari jam masuk: Status = "Terlambat"</li>
-        <li>Sistem juga menghitung durasi keterlambatan dalam menit</li>
-    </ul>
-
-    <p><strong>6. Penyimpanan ke Database</strong></p>
-    <p>Data yang disimpan ke tabel presensis:</p>
-    <ul>
-        <li><code>user_id</code> - ID pegawai yang melakukan absensi</li>
-        <li><code>in</code> - Waktu absen masuk (format HH:MM:SS)</li>
-        <li><code>foto_in</code> - Path file foto selfie masuk</li>
-        <li><code>lat</code> - Latitude lokasi absen masuk</li>
-        <li><code>long</code> - Longitude lokasi absen masuk</li>
-        <li><code>datein</code> - Tanggal absen masuk (format YYYY-MM-DD)</li>
-        <li><code>masuk</code> - Status kehadiran (Masuk/Terlambat)</li>
-        <li><code>keterangan</code> - Keterangan tambahan (tepat waktu/terlambat X menit)</li>
-    </ul>
-
-    <div class="page-break"></div>
-
-    <h3>4.2.4 Kode Function calculateDistance() - Haversine Formula</h3>
-    <p>Function ini menghitung jarak antara dua titik koordinat GPS menggunakan Haversine Formula.</p>
-
-    <pre>
-/**
- * Menghitung jarak antara dua koordinat GPS menggunakan Haversine Formula
- *
- * @param float $lat1 Latitude titik pertama (lokasi pegawai)
- * @param float $lon1 Longitude titik pertama (lokasi pegawai)
- * @param float $lat2 Latitude titik kedua (lokasi kantor)
- * @param float $lon2 Longitude titik kedua (lokasi kantor)
- * @return float Jarak dalam meter
- */
-private function calculateDistance($lat1, $lon1, $lat2, $lon2)
-{
-    // Radius bumi dalam meter (rata-rata)
-    $earthRadius = 6371000;
-
-    // Konversi derajat ke radian
-    $latFrom = deg2rad($lat1);
-    $lonFrom = deg2rad($lon1);
-    $latTo = deg2rad($lat2);
-    $lonTo = deg2rad($lon2);
-
-    // Hitung selisih latitude dan longitude
-    $latDelta = $latTo - $latFrom;
-    $lonDelta = $lonTo - $lonFrom;
-
-    // Haversine formula
-    // a = sin²(Δlat/2) + cos(lat1) * cos(lat2) * sin²(Δlon/2)
-    $a = sin($latDelta / 2) * sin($latDelta / 2) +
-         cos($latFrom) * cos($latTo) *
-         sin($lonDelta / 2) * sin($lonDelta / 2);
-
-    // c = 2 * atan2(√a, √(1−a))
-    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-
-    // Jarak = R × c (dalam meter)
-    $distance = $earthRadius * $c;
-
-    return $distance;
-}
-    </pre>
-
-    <p><strong>Penjelasan Haversine Formula:</strong></p>
-    <p>Haversine Formula adalah rumus matematika yang digunakan untuk menghitung jarak terdekat (great-circle distance) antara dua titik di permukaan bola (dalam hal ini bumi) berdasarkan koordinat latitude dan longitude.</p>
-
-    <p><strong>Langkah-langkah perhitungan:</strong></p>
-    <ol>
-        <li><strong>Konversi derajat ke radian:</strong> GPS menggunakan derajat, tetapi fungsi trigonometri dalam PHP menggunakan radian. 1 derajat = π/180 radian.</li>
-        <li><strong>Hitung selisih (delta):</strong> Menghitung selisih latitude (Δlat) dan longitude (Δlon) antara dua titik.</li>
-        <li><strong>Aplikasi formula:</strong> Menggunakan fungsi sinus dan cosinus untuk menghitung sudut antara dua titik.</li>
-        <li><strong>Kalikan dengan radius bumi:</strong> Hasil akhir dikalikan dengan radius bumi (6371000 meter) untuk mendapatkan jarak dalam meter.</li>
-    </ol>
-
-    <p><strong>Contoh Perhitungan:</strong></p>
-    <p>Misalkan:</p>
-    <ul>
-        <li>Lokasi Pegawai: Latitude = -6.2088, Longitude = 106.8456</li>
-        <li>Lokasi Kantor: Latitude = -6.2090, Longitude = 106.8458</li>
-    </ul>
-    <p>Hasil perhitungan dengan Haversine Formula akan menghasilkan jarak sekitar 30 meter. Jika radius kantor yang ditentukan adalah 100 meter, maka absensi akan diterima karena 30 < 100.</p>
-
-    <div class="page-break"></div>
-
-    <h3>4.2.5 Kode Function absenout() - Menyimpan Absensi Pulang</h3>
-    <p>Function ini memproses absensi pulang dengan validasi dan deteksi lembur.</p>
-
-    <pre>
-public function absenout(Request $request)
-{
-    // Ambil data user yang login
-    $user = auth()->user();
-
-    // Validasi input
-    $request->validate([
-        'foto' => 'required',
-        'lat' => 'required|numeric',
-        'long' => 'required|numeric'
-    ]);
-
-    // Cari data absensi masuk hari ini
-    $presensi = Presensi::where('user_id', $user->id)
-                        ->whereDate('datein', Carbon::today())
-                        ->first();
-
-    // Cek apakah sudah absen masuk
-    if (!$presensi) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Anda belum absen masuk hari ini!'
-        ]);
-    }
-
-    // Cek apakah sudah absen pulang
-    if ($presensi->out != null) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Anda sudah absen pulang hari ini!'
-        ]);
-    }
-
-    // Ambil data radius kantor user
-    $radiusKantor = RadiusKantor::find($user->radius_kantor_id);
-
-    // Hitung jarak dengan Haversine Formula
-    $jarak = $this->calculateDistance(
-        $request->lat,
-        $request->long,
-        $radiusKantor->lat,
-        $radiusKantor->long
-    );
-
-    // Validasi radius
-    if ($jarak > $radiusKantor->radius) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Anda berada di luar radius kantor! Jarak Anda: ' . round($jarak) . ' meter'
-        ]);
-    }
-
-    // Decode foto dari base64
-    $image = $request->foto;
-    $image = str_replace('data:image/jpeg;base64,', '', $image);
-    $image = str_replace(' ', '+', $image);
-    $imageName = 'absen_pulang_' . time() . '_' . $user->id . '.jpg';
-
-    // Simpan foto ke storage
-    Storage::disk('public')->put('images/' . $imageName, base64_decode($image));
-
-    // Ambil jam kerja user
-    $jamKerja = JamKerja::find($user->jam_kerja_id);
-
-    // Waktu sekarang
-    $waktuSekarang = Carbon::now('Asia/Jakarta');
-    $jamSekarang = $waktuSekarang->format('H:i:s');
-
-    // Cek lembur
-    $statusLembur = null;
-    if ($jamSekarang >= $jamKerja->lembur) {
-        $statusLembur = 'lembur';
-    }
-
-    // Update data absensi
-    $presensi->out = $jamSekarang;
-    $presensi->foto_out = 'storage/images/' . $imageName;
-    $presensi->latout = $request->lat;
-    $presensi->longout = $request->long;
-    $presensi->dateout = $waktuSekarang->toDateString();
-    $presensi->keluar = 'Pulang';
-    $presensi->lembur = $statusLembur;
-    $presensi->save();
-
-    $message = 'Absen pulang berhasil!';
-    if ($statusLembur == 'lembur') {
-        $message .= ' Terdeteksi lembur.';
-    }
-
-    return response()->json([
-        'status' => 'success',
-        'message' => $message
-    ]);
-}
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h3>4.2.6 Penjelasan Detail Proses Absensi Pulang</h3>
-
-    <p><strong>1. Validasi Prerequisite</strong></p>
-    <p>Sebelum dapat melakukan absensi pulang, sistem melakukan dua validasi penting:</p>
-    <ul>
-        <li><strong>Cek absen masuk:</strong> Pegawai harus sudah melakukan absensi masuk di hari yang sama. Jika belum absen masuk, sistem akan menolak absensi pulang.</li>
-        <li><strong>Cek duplikasi pulang:</strong> Sistem mengecek apakah field <code>out</code> sudah terisi. Jika sudah terisi (tidak null), berarti pegawai sudah absen pulang dan tidak boleh absen pulang lagi.</li>
-    </ul>
-
-    <p><strong>2. Validasi Radius GPS</strong></p>
-    <p>Sama seperti absensi masuk, absensi pulang juga memvalidasi lokasi pegawai. Pegawai harus berada dalam radius kantor untuk dapat melakukan absensi pulang. Ini mencegah pegawai melakukan absensi pulang dari lokasi yang jauh dari kantor.</p>
-
-    <p><strong>3. Proses Foto Selfie Pulang</strong></p>
-    <p>Proses foto selfie pulang sama dengan foto masuk:</p>
-    <ul>
-        <li>Decode base64 image</li>
-        <li>Generate nama file unik: absen_pulang_timestamp_userid.jpg</li>
-        <li>Simpan ke folder storage/app/public/images/</li>
-        <li>Path disimpan ke field <code>foto_out</code></li>
-    </ul>
-
-    <p><strong>4. Deteksi Lembur Otomatis</strong></p>
-    <p>Sistem membandingkan waktu absen pulang dengan jam lembur yang ditentukan:</p>
-    <ul>
-        <li>Ambil jam lembur dari tabel jam_kerjas (contoh: 19:00:00)</li>
-        <li>Bandingkan waktu pulang sekarang dengan jam lembur</li>
-        <li>Jika waktu pulang >= jam lembur, maka set field <code>lembur = 'lembur'</code></li>
-        <li>Jika waktu pulang < jam lembur, maka field <code>lembur = null</code></li>
-    </ul>
-
-    <p><strong>Contoh Kasus Lembur:</strong></p>
-    <ul>
-        <li>Jam lembur ditentukan: 19:00:00</li>
-        <li>Pegawai A pulang jam 18:30:00 → Tidak lembur (lembur = null)</li>
-        <li>Pegawai B pulang jam 20:15:00 → Lembur (lembur = 'lembur')</li>
-    </ul>
-
-    <p><strong>5. Update Record Absensi</strong></p>
-    <p>Berbeda dengan absensi masuk yang membuat record baru, absensi pulang melakukan UPDATE terhadap record yang sudah ada (record absensi masuk hari ini). Field yang di-update:</p>
-    <ul>
-        <li><code>out</code> - Waktu pulang</li>
-        <li><code>foto_out</code> - Path foto selfie pulang</li>
-        <li><code>latout</code> - Latitude lokasi absen pulang</li>
-        <li><code>longout</code> - Longitude lokasi absen pulang</li>
-        <li><code>dateout</code> - Tanggal absen pulang</li>
-        <li><code>keluar</code> - Status pulang (default: "Pulang")</li>
-        <li><code>lembur</code> - Status lembur ("lembur" atau null)</li>
-    </ul>
-
-    <div class="page-break"></div>
-
-    <h2>4.3 Fitur Histori Absensi</h2>
-    <p><strong>Controller Function:</strong> <code>PegawaiController@histori()</code></p>
-
-    <h3>4.3.1 Kode Function histori()</h3>
-    <pre>
-public function histori()
-{
-    // Ambil data user yang login
-    $user = auth()->user();
-
-    // Ambil semua data presensi user, urutkan dari terbaru
-    $presensis = Presensi::where('user_id', $user->id)
-                         ->orderBy('datein', 'desc')
-                         ->get();
-
-    return view('pegawai.histori.index', compact('presensis'));
-}
-    </pre>
-
-    <p><strong>Data yang ditampilkan di halaman histori:</strong></p>
-    <ul>
-        <li>Tanggal absensi (datein)</li>
-        <li>Jam masuk (in) dan status (Masuk/Terlambat)</li>
-        <li>Jam pulang (out) jika sudah absen pulang</li>
-        <li>Status lembur jika ada</li>
-        <li>Keterangan (tepat waktu / terlambat X menit)</li>
-    </ul>
-
-    <h2>4.4 Fitur Pengajuan Izin/Sakit</h2>
-    <p><strong>Controller:</strong> <code>app/Http/Controllers/IzinController.php</code></p>
-
-    <h3>4.4.1 Kode Function store() - Menyimpan Pengajuan Izin</h3>
-    <pre>
-public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'date' => 'required|date',
-        'start' => 'required|date',
-        'end' => 'required|date|after_or_equal:start',
-        'title' => 'required|string|max:255',
-        'jenis' => 'required|in:Izin,Sakit',
-        'description' => 'required|string',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
-    ]);
-
-    // Handle upload image jika ada
-    $imagePath = null;
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $imageName = 'izin_' . time() . '_' . auth()->id() . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('public/images', $imageName);
-        $imagePath = 'storage/images/' . $imageName;
-    }
-
-    // Simpan data izin
-    $izin = new Izin();
-    $izin->user_id = auth()->id();
-    $izin->date = $request->date;
-    $izin->start = $request->start;
-    $izin->end = $request->end;
-    $izin->title = $request->title;
-    $izin->jenis = $request->jenis;
-    $izin->description = $request->description;
-    $izin->image = $imagePath;
-    $izin->status = 'Pending'; // Default status
-    $izin->save();
-
-    return redirect('/pegawai/izin')->with('success',
-        'Pengajuan ' . $request->jenis . ' berhasil dikirim! Menunggu approval dari admin.');
-}
-    </pre>
-
-    <p><strong>Field yang diinput saat pengajuan izin:</strong></p>
-    <table>
-        <tr>
-            <th width="20%">Field</th>
-            <th>Keterangan</th>
-        </tr>
-        <tr>
-            <td>date</td>
-            <td>Tanggal pengajuan (tanggal hari ini)</td>
-        </tr>
-        <tr>
-            <td>start</td>
-            <td>Tanggal mulai izin (tidak boleh kurang dari hari ini)</td>
-        </tr>
-        <tr>
-            <td>end</td>
-            <td>Tanggal selesai izin (harus >= start date)</td>
-        </tr>
-        <tr>
-            <td>title</td>
-            <td>Judul/ringkasan izin (contoh: "Izin Keperluan Keluarga")</td>
-        </tr>
-        <tr>
-            <td>jenis</td>
-            <td>Jenis pengajuan: "Izin" atau "Sakit"</td>
-        </tr>
-        <tr>
-            <td>description</td>
-            <td>Alasan detail (wajib diisi)</td>
-        </tr>
-        <tr>
-            <td>image</td>
-            <td>Foto pendukung (opsional, contoh: surat dokter untuk sakit). Format: JPG/PNG, max 2MB</td>
-        </tr>
-    </table>
-
-    <div class="page-break"></div>
-
-    <h2>4.5 Fitur Profile</h2>
-    <p><strong>Controller Function:</strong> <code>PegawaiController@profile()</code> dan <code>PegawaiController@updateprofile()</code></p>
-
-    <h3>4.5.1 Kode Function profile()</h3>
-    <pre>
-public function profile()
-{
-    // Ambil data user dengan eager loading relasi
-    $user = User::with(['jabatan', 'jamKerja', 'radiusKantor.lokasiPenempatan'])
-                ->find(auth()->id());
-
-    // Ambil data dropdown untuk form edit
-    $jabatans = Jabatan::all();
-    $jamKerjas = JamKerja::all();
-    $radiusKantors = RadiusKantor::with('lokasiPenempatan')->get();
-
-    return view('pegawai.profile.index', compact('user', 'jabatans', 'jamKerjas', 'radiusKantors'));
-}
-    </pre>
-
-    <h3>4.5.2 Kode Function updateprofile()</h3>
-    <pre>
-public function updateprofile(Request $request)
-{
-    $user = auth()->user();
-
-    // Validasi input
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'password' => 'nullable|min:6',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
-    ]);
-
-    // Update data user
-    $user->name = $request->name;
-    $user->email = $request->email;
-
-    // Update password jika diisi
-    if ($request->filled('password')) {
-        $user->password = bcrypt($request->password);
-    }
-
-    // Upload foto profil jika ada
-    if ($request->hasFile('image')) {
-        // Hapus foto lama jika ada
-        if ($user->image && Storage::disk('public')->exists(str_replace('storage/', '', $user->image))) {
-            Storage::disk('public')->delete(str_replace('storage/', '', $user->image));
-        }
-
-        // Upload foto baru
-        $image = $request->file('image');
-        $imageName = 'profile_' . time() . '_' . $user->id . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('public/images', $imageName);
-        $user->image = 'storage/images/' . $imageName;
-    }
-
-    $user->save();
-
-    // Update session
-    session(['user' => $user]);
-
-    return redirect('/pegawai/profile')->with('success', 'Profil berhasil diupdate!');
-}
-    </pre>
-
-    <p><strong>Field yang dapat diupdate di profil:</strong></p>
-    <ul>
-        <li><strong>Nama:</strong> Dapat diubah kapan saja</li>
-        <li><strong>Email:</strong> Dapat diubah, tetapi harus unique (tidak boleh sama dengan email user lain)</li>
-        <li><strong>Password:</strong> Opsional, hanya diupdate jika diisi. Akan di-hash dengan bcrypt</li>
-        <li><strong>Foto Profil:</strong> Opsional, jika upload foto baru maka foto lama akan dihapus dari storage</li>
-    </ul>
-
-    <div class="note">
-        <strong>Catatan Penting:</strong>
-        <p>Field seperti NIK, Jabatan, Jam Kerja, dan Radius Kantor biasanya tidak dapat diubah oleh pegawai sendiri. Perubahan data tersebut harus dilakukan oleh admin melalui menu "Data Pegawai" untuk menjaga integritas data.</p>
-    </div>
-
-    <div class="page-break"></div>
-
-    <h1>5. DATABASE & MODEL</h1>
-
-    <h2>5.1 Model User</h2>
-    <p><strong>File:</strong> <code>app/Models/User.php</code></p>
-    <p><strong>Table:</strong> <code>users</code></p>
-
-    <h3>5.1.1 Struktur Tabel Users</h3>
-    <table>
-        <tr>
-            <th width="25%">Field</th>
-            <th width="20%">Tipe Data</th>
-            <th>Keterangan</th>
-        </tr>
-        <tr>
-            <td>id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Primary Key, Auto Increment</td>
-        </tr>
-        <tr>
-            <td>nik</td>
-            <td>VARCHAR(255)</td>
-            <td>Nomor Induk Karyawan (Unique, Not Null)</td>
-        </tr>
-        <tr>
-            <td>name</td>
-            <td>VARCHAR(255)</td>
-            <td>Nama lengkap user (Not Null)</td>
-        </tr>
-        <tr>
-            <td>email</td>
-            <td>VARCHAR(255)</td>
-            <td>Email user (Unique, Not Null)</td>
-        </tr>
-        <tr>
-            <td>password</td>
-            <td>VARCHAR(255)</td>
-            <td>Password ter-hash dengan bcrypt (Not Null)</td>
-        </tr>
-        <tr>
-            <td>role</td>
-            <td>VARCHAR(255)</td>
-            <td>Role user: 'Admin' atau 'Pegawai' (Not Null)</td>
-        </tr>
-        <tr>
-            <td>jabatan_id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Foreign Key ke tabel jabatans (Nullable)</td>
-        </tr>
-        <tr>
-            <td>jam_kerja_id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Foreign Key ke tabel jam_kerjas (Nullable)</td>
-        </tr>
-        <tr>
-            <td>radius_kantor_id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Foreign Key ke tabel radius_kantors (Nullable)</td>
-        </tr>
-        <tr>
-            <td>image</td>
-            <td>VARCHAR(255)</td>
-            <td>Path foto profil (Nullable)</td>
-        </tr>
-        <tr>
-            <td>created_at</td>
-            <td>TIMESTAMP</td>
-            <td>Waktu data dibuat (Auto)</td>
-        </tr>
-        <tr>
-            <td>updated_at</td>
-            <td>TIMESTAMP</td>
-            <td>Waktu data terakhir diupdate (Auto)</td>
-        </tr>
-    </table>
-
-    <h3>5.1.2 Kode Model User.php</h3>
-    <pre>
-namespace App\Models;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-
-class User extends Authenticatable
-{
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'nik',
-        'name',
-        'email',
-        'password',
-        'role',
-        'jabatan_id',
-        'jam_kerja_id',
-        'radius_kantor_id',
-        'image'
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Relasi ke tabel jabatans (Many to One)
-     * Satu user memiliki satu jabatan
-     */
-    public function jabatan()
-    {
-        return $this->belongsTo(Jabatan::class);
-    }
-
-    /**
-     * Relasi ke tabel jam_kerjas (Many to One)
-     * Satu user memiliki satu jam kerja
-     */
-    public function jamKerja()
-    {
-        return $this->belongsTo(JamKerja::class);
-    }
-
-    /**
-     * Relasi ke tabel radius_kantors (Many to One)
-     * Satu user ditempatkan di satu radius kantor
-     */
-    public function radiusKantor()
-    {
-        return $this->belongsTo(RadiusKantor::class);
-    }
-
-    /**
-     * Relasi ke tabel presensis (One to Many)
-     * Satu user memiliki banyak data presensi
-     */
-    public function presensis()
-    {
-        return $this->hasMany(Presensi::class);
-    }
-
-    /**
-     * Relasi ke tabel izins (One to Many)
-     * Satu user memiliki banyak pengajuan izin
-     */
-    public function izins()
-    {
-        return $this->hasMany(Izin::class);
-    }
-}
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h2>5.2 Model Presensi</h2>
-    <p><strong>File:</strong> <code>app/Models/Presensi.php</code></p>
-    <p><strong>Table:</strong> <code>presensis</code></p>
-
-    <h3>5.2.1 Struktur Tabel Presensis</h3>
-    <table>
-        <tr>
-            <th width="20%">Field</th>
-            <th width="20%">Tipe Data</th>
-            <th>Keterangan</th>
-        </tr>
-        <tr>
-            <td>id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Primary Key, Auto Increment</td>
-        </tr>
-        <tr>
-            <td>user_id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Foreign Key ke tabel users (Not Null)</td>
-        </tr>
-        <tr>
-            <td>in</td>
-            <td>TIME</td>
-            <td>Jam masuk kerja (Not Null)</td>
-        </tr>
-        <tr>
-            <td>out</td>
-            <td>TIME</td>
-            <td>Jam pulang kerja (Nullable)</td>
-        </tr>
-        <tr>
-            <td>foto_in</td>
-            <td>VARCHAR(255)</td>
-            <td>Path foto selfie saat absen masuk (Not Null)</td>
-        </tr>
-        <tr>
-            <td>foto_out</td>
-            <td>VARCHAR(255)</td>
-            <td>Path foto selfie saat absen pulang (Nullable)</td>
-        </tr>
-        <tr>
-            <td>lat</td>
-            <td>DECIMAL(10,8)</td>
-            <td>Latitude GPS saat absen masuk (Not Null)</td>
-        </tr>
-        <tr>
-            <td>long</td>
-            <td>DECIMAL(11,8)</td>
-            <td>Longitude GPS saat absen masuk (Not Null)</td>
-        </tr>
-        <tr>
-            <td>latout</td>
-            <td>DECIMAL(10,8)</td>
-            <td>Latitude GPS saat absen pulang (Nullable)</td>
-        </tr>
-        <tr>
-            <td>longout</td>
-            <td>DECIMAL(11,8)</td>
-            <td>Longitude GPS saat absen pulang (Nullable)</td>
-        </tr>
-        <tr>
-            <td>datein</td>
-            <td>DATE</td>
-            <td>Tanggal absen masuk (Not Null)</td>
-        </tr>
-        <tr>
-            <td>dateout</td>
-            <td>DATE</td>
-            <td>Tanggal absen pulang (Nullable)</td>
-        </tr>
-        <tr>
-            <td>masuk</td>
-            <td>VARCHAR(255)</td>
-            <td>Status masuk: "Masuk" atau "Terlambat" (Not Null)</td>
-        </tr>
-        <tr>
-            <td>keluar</td>
-            <td>VARCHAR(255)</td>
-            <td>Status pulang (Nullable)</td>
-        </tr>
-        <tr>
-            <td>keterangan</td>
-            <td>VARCHAR(255)</td>
-            <td>Keterangan tambahan (Nullable)</td>
-        </tr>
-        <tr>
-            <td>lembur</td>
-            <td>VARCHAR(255)</td>
-            <td>Status lembur: "lembur" atau null (Nullable)</td>
-        </tr>
-        <tr>
-            <td>created_at</td>
-            <td>TIMESTAMP</td>
-            <td>Waktu data dibuat</td>
-        </tr>
-        <tr>
-            <td>updated_at</td>
-            <td>TIMESTAMP</td>
-            <td>Waktu data terakhir diupdate</td>
-        </tr>
-    </table>
-
-    <h3>5.2.2 Kode Model Presensi.php</h3>
-    <pre>
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Presensi extends Model
-{
-    /**
-     * Nama tabel di database
-     */
-    protected $table = 'presensis';
-
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'user_id',
-        'in',
-        'out',
-        'foto_in',
-        'foto_out',
-        'lat',
-        'long',
-        'latout',
-        'longout',
-        'datein',
-        'dateout',
-        'masuk',
-        'keluar',
-        'keterangan',
-        'lembur'
-    ];
-
-    /**
-     * Relasi ke tabel users (Many to One)
-     * Satu presensi dimiliki oleh satu user
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-}
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h2>5.3 Model Izin</h2>
-    <p><strong>File:</strong> <code>app/Models/Izin.php</code></p>
-    <p><strong>Table:</strong> <code>izins</code></p>
-
-    <h3>5.3.1 Struktur Tabel Izins</h3>
-    <table>
-        <tr>
-            <th width="20%">Field</th>
-            <th width="20%">Tipe Data</th>
-            <th>Keterangan</th>
-        </tr>
-        <tr>
-            <td>id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Primary Key, Auto Increment</td>
-        </tr>
-        <tr>
-            <td>user_id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Foreign Key ke tabel users (Not Null)</td>
-        </tr>
-        <tr>
-            <td>date</td>
-            <td>DATE</td>
-            <td>Tanggal pengajuan (Not Null)</td>
-        </tr>
-        <tr>
-            <td>start</td>
-            <td>DATE</td>
-            <td>Tanggal mulai izin (Not Null)</td>
-        </tr>
-        <tr>
-            <td>end</td>
-            <td>DATE</td>
-            <td>Tanggal selesai izin (Not Null)</td>
-        </tr>
-        <tr>
-            <td>title</td>
-            <td>VARCHAR(255)</td>
-            <td>Judul/ringkasan izin (Not Null)</td>
-        </tr>
-        <tr>
-            <td>jenis</td>
-            <td>VARCHAR(255)</td>
-            <td>Jenis: "Izin", "Sakit", atau "Cuti" (Not Null)</td>
-        </tr>
-        <tr>
-            <td>description</td>
-            <td>TEXT</td>
-            <td>Alasan detail (Not Null)</td>
-        </tr>
-        <tr>
-            <td>image</td>
-            <td>VARCHAR(255)</td>
-            <td>Path foto pendukung (Nullable)</td>
-        </tr>
-        <tr>
-            <td>status</td>
-            <td>VARCHAR(255)</td>
-            <td>Status: "Pending", "Disetujui", atau "Ditolak" (Default: Pending)</td>
-        </tr>
-        <tr>
-            <td>created_at</td>
-            <td>TIMESTAMP</td>
-            <td>Waktu data dibuat</td>
-        </tr>
-        <tr>
-            <td>updated_at</td>
-            <td>TIMESTAMP</td>
-            <td>Waktu data terakhir diupdate</td>
-        </tr>
-    </table>
-
-    <h3>5.3.2 Kode Model Izin.php</h3>
-    <pre>
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Izin extends Model
-{
-    /**
-     * Nama tabel di database
-     */
-    protected $table = 'izins';
-
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'user_id',
-        'date',
-        'start',
-        'end',
-        'title',
-        'jenis',
-        'description',
-        'image',
-        'status'
-    ];
-
-    /**
-     * Relasi ke tabel users (Many to One)
-     * Satu izin dimiliki oleh satu user
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-}
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h2>5.4 Model Jabatan</h2>
-    <p><strong>File:</strong> <code>app/Models/Jabatan.php</code></p>
-    <p><strong>Table:</strong> <code>jabatans</code></p>
-
-    <h3>5.4.1 Struktur Tabel Jabatans</h3>
-    <table>
-        <tr>
-            <th width="25%">Field</th>
-            <th width="20%">Tipe Data</th>
-            <th>Keterangan</th>
-        </tr>
-        <tr>
-            <td>id</td>
-            <td>BIGINT UNSIGNED</td>
-            <td>Primary Key, Auto Increment</td>
-        </tr>
-        <tr>
-            <td>name</td>
-            <td>VARCHAR(255)</td>
-            <td>Nama jabatan (Not Null, Unique)</td>
-        </tr>
-        <tr>
-            <td>created_at</td>
-            <td>TIMESTAMP</td>
-            <td>Waktu data dibuat</td>
-        </tr>
-        <tr>
-            <td>updated_at</td>
-            <td>TIMESTAMP</td>
-            <td>Waktu data terakhir diupdate</td>
-        </tr>
-    </table>
-
-    <h3>5.4.2 Kode Model Jabatan.php</h3>
-    <pre>
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Jabatan extends Model
-{
-    protected $fillable = ['name'];
-
-    /**
-     * Relasi ke tabel users (One to Many)
-     * Satu jabatan dapat dimiliki oleh banyak user
-     */
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
-}
-    </pre>
-
-    <h2>5.5 Model JamKerja</h2>
-    <p><strong>File:</strong> <code>app/Models/JamKerja.php</code></p>
-    <p><strong>Table:</strong> <code>jam_kerjas</code></p>
-
-    <h3>5.5.1 Kode Model JamKerja.php</h3>
-    <pre>
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class JamKerja extends Model
-{
-    protected $fillable = ['in', 'out', 'lembur'];
-
-    /**
-     * Relasi ke tabel users (One to Many)
-     * Satu jam kerja dapat digunakan oleh banyak user
-     */
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
-}
-    </pre>
-
-    <h2>5.6 Model LokasiPenempatan</h2>
-    <p><strong>File:</strong> <code>app/Models/LokasiPenempatan.php</code></p>
-    <p><strong>Table:</strong> <code>lokasi_penempatans</code></p>
-
-    <h3>5.6.1 Kode Model LokasiPenempatan.php</h3>
-    <pre>
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class LokasiPenempatan extends Model
-{
-    protected $fillable = ['name'];
-
-    /**
-     * Relasi ke tabel radius_kantors (One to Many)
-     * Satu lokasi penempatan memiliki banyak radius kantor
-     */
-    public function radiusKantors()
-    {
-        return $this->hasMany(RadiusKantor::class);
-    }
-
-    /**
-     * Relasi ke tabel users (One to Many)
-     */
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
-}
-    </pre>
-
-    <h2>5.7 Model RadiusKantor</h2>
-    <p><strong>File:</strong> <code>app/Models/RadiusKantor.php</code></p>
-    <p><strong>Table:</strong> <code>radius_kantors</code></p>
-
-    <h3>5.7.1 Kode Model RadiusKantor.php</h3>
-    <pre>
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class RadiusKantor extends Model
-{
-    protected $fillable = [
-        'lokasi_penempatan_id',
-        'lat',
-        'long',
-        'radius'
-    ];
-
-    /**
-     * Relasi ke tabel lokasi_penempatans (Many to One)
-     */
-    public function lokasiPenempatan()
-    {
-        return $this->belongsTo(LokasiPenempatan::class);
-    }
-
-    /**
-     * Relasi ke tabel users (One to Many)
-     */
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
-}
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h1>6. DATABASE MIGRATIONS</h1>
-
-    <p>Database migrations adalah file-file yang berisi instruksi untuk membuat atau mengubah struktur database. Laravel menggunakan migrations untuk version control database schema.</p>
-
-    <h2>6.1 Timeline Migrations</h2>
-    <table>
-        <tr>
-            <th width="35%">File Migration</th>
-            <th width="15%">Tanggal</th>
-            <th>Deskripsi</th>
-        </tr>
-        <tr>
-            <td>2014_10_12_000000_create_users_table</td>
-            <td>2014-10-12</td>
-            <td>Membuat tabel users (default Laravel)</td>
-        </tr>
-        <tr>
-            <td>2014_10_12_100000_create_password_reset_tokens_table</td>
-            <td>2014-10-12</td>
-            <td>Tabel untuk reset password</td>
-        </tr>
-        <tr>
-            <td>2019_08_19_000000_create_failed_jobs_table</td>
-            <td>2019-08-19</td>
-            <td>Tabel untuk queue jobs yang gagal</td>
-        </tr>
-        <tr>
-            <td>2019_12_14_000001_create_personal_access_tokens_table</td>
-            <td>2019-12-14</td>
-            <td>Tabel untuk API tokens (Laravel Sanctum)</td>
-        </tr>
-        <tr>
-            <td>2024_09_19_115237_create_jabatans_table</td>
-            <td>2024-09-19</td>
-            <td>Membuat tabel jabatans</td>
-        </tr>
-        <tr>
-            <td>2024_09_19_115301_create_jam_kerjas_table</td>
-            <td>2024-09-19</td>
-            <td>Membuat tabel jam_kerjas</td>
-        </tr>
-        <tr>
-            <td>2024_09_19_115330_create_lokasi_penempatans_table</td>
-            <td>2024-09-19</td>
-            <td>Membuat tabel lokasi_penempatans</td>
-        </tr>
-        <tr>
-            <td>2024_09_19_122008_create_presensis_table</td>
-            <td>2024-09-19</td>
-            <td>Membuat tabel presensis</td>
-        </tr>
-        <tr>
-            <td>2024_09_21_140817_create_radius_kantors_table</td>
-            <td>2024-09-21</td>
-            <td>Membuat tabel radius_kantors</td>
-        </tr>
-        <tr>
-            <td>2024_09_21_215156_add_image_user</td>
-            <td>2024-09-21</td>
-            <td>Menambahkan kolom image ke tabel users</td>
-        </tr>
-        <tr>
-            <td>2024_09_22_092337_add_location_in_radius</td>
-            <td>2024-09-22</td>
-            <td>Menambahkan kolom lokasi_penempatan_id ke radius_kantors</td>
-        </tr>
-        <tr>
-            <td>2024_09_22_122714_remove_lokasi</td>
-            <td>2024-09-22</td>
-            <td>Menghapus kolom lokasi dari presensis</td>
-        </tr>
-        <tr>
-            <td>2024_09_22_122802_add_lat_long</td>
-            <td>2024-09-22</td>
-            <td>Menambahkan kolom lat, long, latout, longout ke presensis</td>
-        </tr>
-        <tr>
-            <td>2024_09_22_193525_create_izins_table</td>
-            <td>2024-09-22</td>
-            <td>Membuat tabel izins</td>
-        </tr>
-    </table>
-
-    <div class="page-break"></div>
-
-    <h2>6.2 Kode Migration Create Presensis Table</h2>
-    <pre>
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('presensis', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->time('in');
-            $table->time('out')->nullable();
-            $table->string('foto_in');
-            $table->string('foto_out')->nullable();
-            $table->decimal('lat', 10, 8);
-            $table->decimal('long', 11, 8);
-            $table->decimal('latout', 10, 8)->nullable();
-            $table->decimal('longout', 11, 8)->nullable();
-            $table->date('datein');
-            $table->date('dateout')->nullable();
-            $table->string('masuk');
-            $table->string('keluar')->nullable();
-            $table->string('keterangan')->nullable();
-            $table->string('lembur')->nullable();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('presensis');
-    }
-};
-    </pre>
-
-    <h2>6.3 Kode Migration Create Radius Kantors Table</h2>
-    <pre>
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    public function up(): void
-    {
-        Schema::create('radius_kantors', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('lokasi_penempatan_id')
-                  ->constrained('lokasi_penempatans')
-                  ->onDelete('cascade');
-            $table->decimal('lat', 10, 8);
-            $table->decimal('long', 11, 8);
-            $table->integer('radius');
-            $table->timestamps();
-        });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('radius_kantors');
-    }
-};
-    </pre>
-
-    <h2>6.4 Kode Migration Create Izins Table</h2>
-    <pre>
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    public function up(): void
-    {
-        Schema::create('izins', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->date('date');
-            $table->date('start');
-            $table->date('end');
-            $table->string('title');
-            $table->string('jenis');
-            $table->text('description');
-            $table->string('image')->nullable();
-            $table->string('status')->default('Pending');
-            $table->timestamps();
-        });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('izins');
-    }
-};
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h1>7. ROUTES (URL MAPPING)</h1>
-
-    <p><strong>File:</strong> <code>routes/web.php</code></p>
-    <p>Routes mendefinisikan URL yang dapat diakses di aplikasi dan menghubungkannya dengan controller yang sesuai.</p>
-
-    <h2>7.1 Public Routes (Tanpa Middleware)</h2>
-    <pre>
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
-
-// Landing page pegawai
-Route::get('/', [HomeController::class, 'index']);
-
-// Login pegawai
-Route::post('/home/checklogin', [HomeController::class, 'checklogin']);
-
-// Registrasi pegawai
-Route::get('/home/register', [HomeController::class, 'register']);
-Route::post('/home/saveregister', [HomeController::class, 'saveregister']);
-
-// Login admin
-Route::get('/login', [AuthController::class, 'index']);
-Route::post('/login/checklogin', [AuthController::class, 'checklogin']);
-    </pre>
-
-    <h2>7.2 Admin Routes (Middleware: auth)</h2>
-    <pre>
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\JamKerjaController;
-use App\Http\Controllers\LokasiPenempatanController;
-use App\Http\Controllers\RadiusKantorController;
-
-Route::middleware(['auth'])->prefix('main')->group(function () {
-
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index']);
-
-    // Master Data - Jabatan (CRUD)
-    Route::resource('/jabatan', JabatanController::class);
-
-    // Master Data - Lokasi Penempatan (CRUD)
-    Route::resource('/lokasi', LokasiPenempatanController::class);
-
-    // Master Data - Jam Kerja (CRUD)
-    Route::resource('/jamkerja', JamKerjaController::class);
-
-    // Master Data - Radius Kantor (CRUD)
-    Route::resource('/radius', RadiusKantorController::class);
-
-    // Data Pegawai
-    Route::get('/pegawai', [DashboardController::class, 'pegawai']);
-    Route::get('/pegawai/{id}', [DashboardController::class, 'detailpegawai']);
-
-    // Data Absensi
-    Route::get('/absen', [DashboardController::class, 'absen']);
-    Route::get('/absen/detail/{id}', [DashboardController::class, 'detailAbsen']);
-    Route::get('/absen/detail-pulang/{id}', [DashboardController::class, 'detailAbsenPulang']);
-
-    // Data Izin/Sakit
-    Route::get('/izin', [DashboardController::class, 'izin']);
-    Route::post('/izin/approve/{id}', [DashboardController::class, 'approve']);
-    Route::post('/izin/reject/{id}', [DashboardController::class, 'reject']);
-
-    // Data Cuti
-    Route::get('/cuti', [DashboardController::class, 'cuti']);
-    Route::post('/cuti/approve/{id}', [DashboardController::class, 'approveCuti']);
-    Route::post('/cuti/reject/{id}', [DashboardController::class, 'rejectCuti']);
-
-    // Logout
-    Route::get('/logout', [AuthController::class, 'logout']);
-});
-    </pre>
-
-    <div class="page-break"></div>
-
-    <h2>7.3 Pegawai Routes (Middleware: auth.check)</h2>
-    <pre>
-use App\Http\Controllers\PegawaiController;
-use App\Http\Controllers\IzinController;
-
-Route::middleware(['auth.check'])->prefix('pegawai')->group(function () {
-
-    // Dashboard Pegawai
-    Route::get('/home', [PegawaiController::class, 'index']);
-
-    // Absensi
-    Route::get('/absen', [PegawaiController::class, 'absen']);
-    Route::post('/saveabsen', [PegawaiController::class, 'saveabsen']);
-    Route::post('/absenout', [PegawaiController::class, 'absenout']);
-
-    // Histori
-    Route::get('/histori', [PegawaiController::class, 'histori']);
-
-    // Lokasi
-    Route::get('/lokasi', [PegawaiController::class, 'lokasi']);
-
-    // Izin/Sakit (Resource Route)
-    Route::resource('/izin', IzinController::class);
-
-    // Cuti
-    Route::get('/cuti', [PegawaiController::class, 'cuti']);
-    Route::get('/cuti/create', [PegawaiController::class, 'create']);
-    Route::post('/cuti/store', [PegawaiController::class, 'store']);
-    Route::get('/cuti/{id}', [PegawaiController::class, 'show']);
-
-    // Profile
-    Route::get('/profile', [PegawaiController::class, 'profile']);
-    Route::post('/updateprofile', [PegawaiController::class, 'updateprofile']);
-
-    // Logout
-    Route::get('/logout', [HomeController::class, 'logout']);
-});
-    </pre>
-
-    <h2>7.4 Penjelasan Route::resource()</h2>
-    <p>Route::resource() adalah shortcut untuk membuat 7 routes CRUD sekaligus. Contoh:</p>
-    <pre>
-Route::resource('/jabatan', JabatanController::class);
-    </pre>
-
-    <p>Akan menghasilkan 7 routes berikut:</p>
-    <table>
-        <tr>
-            <th width="15%">Method</th>
-            <th width="35%">URI</th>
-            <th width="25%">Action</th>
-            <th>Fungsi</th>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/main/jabatan</td>
-            <td>index</td>
-            <td>Menampilkan list semua jabatan</td>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/main/jabatan/create</td>
-            <td>create</td>
-            <td>Menampilkan form tambah jabatan</td>
-        </tr>
-        <tr>
-            <td>POST</td>
-            <td>/main/jabatan</td>
-            <td>store</td>
-            <td>Menyimpan jabatan baru</td>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/main/jabatan/{id}</td>
-            <td>show</td>
-            <td>Menampilkan detail jabatan</td>
-        </tr>
-        <tr>
-            <td>GET</td>
-            <td>/main/jabatan/{id}/edit</td>
-            <td>edit</td>
-            <td>Menampilkan form edit jabatan</td>
-        </tr>
-        <tr>
-            <td>PUT/PATCH</td>
-            <td>/main/jabatan/{id}</td>
-            <td>update</td>
-            <td>Mengupdate jabatan</td>
-        </tr>
-        <tr>
-            <td>DELETE</td>
-            <td>/main/jabatan/{id}</td>
-            <td>destroy</td>
-            <td>Menghapus jabatan</td>
-        </tr>
-    </table>
-
-    <div class="page-break"></div>
-
-    <h2>7.5 Custom Middleware: auth.check (PegawaiMiddleware)</h2>
-    <p><strong>File:</strong> <code>app/Http/Middleware/PegawaiMiddleware.php</code></p>
-    <p>Middleware ini berfungsi untuk memvalidasi apakah user yang mengakses route pegawai adalah user dengan role 'Pegawai'.</p>
-
-    <pre>
-namespace App\Http\Middleware;
-
-use Closure;
-use Illuminate\Http\Request;
-
-class PegawaiMiddleware
-{
-    /**
-     * Handle an incoming request.
-     */
-    public function handle(Request $request, Closure $next)
-    {
-        // Cek apakah ada user di session
-        if (!session()->has('user')) {
-            // Jika tidak ada session, redirect ke login
-            return redirect('/')->with('error', 'Silakan login terlebih dahulu!');
-        }
-
-        // Ambil data user dari session
-        $user = session('user');
-
-        // Cek apakah role user adalah 'Pegawai'
-        if ($user->role !== 'Pegawai') {
-            // Jika bukan pegawai, redirect ke login
-            return redirect('/')->with('error', 'Akses ditolak!');
-        }
-
-        // Jika valid, lanjutkan request
-        return $next($request);
-    }
-}
-    </pre>
-
-    <p><strong>Registrasi Middleware di Kernel.php:</strong></p>
-    <pre>
-// File: app/Http/Kernel.php
-
-protected $middlewareAliases = [
-    'auth' => \App\Http\Middleware\Authenticate::class,
-    'auth.check' => \App\Http\Middleware\PegawaiMiddleware::class,
-    // ... middleware lainnya
-];
-    </pre>
-
-    <div class="note">
-        <strong>Catatan Akhir:</strong>
-        <p>Dokumentasi ini mencakup seluruh fitur utama aplikasi E-Absensi mulai dari sistem autentikasi, fitur-fitur admin dan pegawai, struktur database, model relasi, hingga routing. Semua kode yang ditampilkan adalah implementasi aktual dari aplikasi yang berjalan.</p>
-
-        <p><strong>Teknologi yang digunakan:</strong></p>
-        <ul>
-            <li>Backend: Laravel Framework (PHP)</li>
-            <li>Database: MySQL dengan Eloquent ORM</li>
-            <li>Frontend: Blade Template Engine, Bootstrap, jQuery</li>
-            <li>GPS: HTML5 Geolocation API + Haversine Formula</li>
-            <li>Camera: HTML5 getUserMedia API dengan base64 encoding</li>
-            <li>Authentication: Session-based dengan bcrypt password hashing</li>
-            <li>Storage: Laravel Storage (storage/app/public/images/)</li>
-        </ul>
-    </div>
-
-    <p class="center" style="margin-top: 50px; font-weight: bold; font-size: 14pt;">
+    <p class="center" style="margin-top: 24pt; font-weight: bold; font-size: 14pt;">
         --- AKHIR DOKUMENTASI ---
     </p>
+
+    <div class="note" style="margin-top: 24pt;">
+        <strong>Catatan:</strong>
+        <p>Dokumentasi ini merupakan bagian dari dokumentasi lengkap aplikasi E-Absensi. Dokumentasi lengkap mencakup seluruh fitur aplikasi termasuk menu <em>sidebar</em> admin, <em>bottom navigation</em> pegawai, struktur <em>database</em>, implementasi <em>models</em>, <em>controllers</em>, <em>migrations</em>, dan <em>routing</em>.</p>
+        <p><strong>Teknologi yang digunakan:</strong></p>
+        <p style="text-indent: 0; margin-bottom: 3pt;"><em>Backend</em>: Laravel Framework (PHP)</p>
+        <p style="text-indent: 0; margin-bottom: 3pt;"><em>Database</em>: MySQL dengan Eloquent ORM</p>
+        <p style="text-indent: 0; margin-bottom: 3pt;"><em>Frontend</em>: Blade Template Engine, Bootstrap, jQuery</p>
+        <p style="text-indent: 0; margin-bottom: 3pt;">GPS: HTML5 Geolocation API dengan <em>Haversine Formula</em></p>
+        <p style="text-indent: 0; margin-bottom: 3pt;">Kamera: HTML5 getUserMedia API dengan <em>base64 encoding</em></p>
+        <p style="text-indent: 0; margin-bottom: 3pt;">Autentikasi: <em>Session-based</em> dengan <em>bcrypt password hashing</em></p>
+        <p style="text-indent: 0;"><em>Storage</em>: Laravel Storage (storage/app/public/images/)</p>
+    </div>
 
 </body>
 </html>
